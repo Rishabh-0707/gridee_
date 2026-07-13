@@ -1,0 +1,636 @@
+"use client";
+
+import {
+  ArrowDown,
+  ArrowRight,
+  ArrowUpRight,
+  BarChart3,
+  Bell,
+  Building2,
+  Camera,
+  Car,
+  Check,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  CircleParking,
+  Clock3,
+  CreditCard,
+  Cross,
+  GraduationCap,
+  HeartPulse,
+  History,
+  LockKeyhole,
+  MapPin,
+  Menu,
+  QrCode,
+  ScanLine,
+  ShieldCheck,
+  ShoppingBag,
+  Smartphone,
+  Sparkles,
+  TrainFront,
+  Wallet,
+  X,
+  Zap,
+} from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Lenis from "lenis";
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import {
+  ComponentType,
+  MouseEvent as ReactMouseEvent,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { useInView } from "react-intersection-observer";
+
+type IconType = ComponentType<{ size?: number; strokeWidth?: number; className?: string }>;
+
+const navItems = [
+  ["Product", "#product"],
+  ["Solutions", "#solutions"],
+  ["Technology", "#technology"],
+  ["Vision", "#vision"],
+  ["Company", "#footer"],
+];
+
+const stats = [
+  { value: 3400, suffix: "+", label: "Students" },
+  { value: 10000, suffix: "+", label: "Parking Sessions" },
+  { value: 98, suffix: "%", label: "Successful Experience" },
+  { value: 1000, suffix: "+", label: "Parking Locations" },
+];
+
+const storySteps: { title: string; copy: string; icon: IconType }[] = [
+  {
+    title: "Searching for parking",
+    copy: "Gridee reads real-time availability before you reach the gate.",
+    icon: MapPin,
+  },
+  {
+    title: "Finding a slot",
+    copy: "The nearest space is surfaced instantly, with clear directions.",
+    icon: CircleParking,
+  },
+  {
+    title: "Booking",
+    copy: "Reserve in a tap. Your space waits while you arrive.",
+    icon: Check,
+  },
+  {
+    title: "Vehicle scanning",
+    copy: "AI identifies your number plate and pairs it with your booking.",
+    icon: ScanLine,
+  },
+  {
+    title: "Vehicle entry",
+    copy: "The gate opens automatically—no ticket, queue or interruption.",
+    icon: Zap,
+  },
+  {
+    title: "Vehicle parked",
+    copy: "You are guided home. Time, payment and access stay in sync.",
+    icon: Car,
+  },
+];
+
+const screens = [
+  { key: "home", title: "Home", kicker: "See what matters. Instantly." },
+  { key: "live", title: "Live Parking", kicker: "Availability that moves with the city." },
+  { key: "scanner", title: "QR Scanner", kicker: "Contactless access in a heartbeat." },
+  { key: "wallet", title: "Wallet", kicker: "Every payment, one secure place." },
+  { key: "booking", title: "Booking", kicker: "Your space, ready before you arrive." },
+  { key: "history", title: "History", kicker: "Every journey, perfectly organized." },
+  { key: "subscription", title: "Subscription", kicker: "Parking that simply renews." },
+];
+
+const features: { title: string; copy: string; icon: IconType; tag: string }[] = [
+  {
+    title: "Smart Parking Management",
+    copy: "Real-time availability and a seamless digital parking experience.",
+    icon: Car,
+    tag: "Live",
+  },
+  {
+    title: "Mobile First Experience",
+    copy: "Book, park and manage everything directly from the mobile application.",
+    icon: Smartphone,
+    tag: "Native",
+  },
+  {
+    title: "Live Parking Analytics",
+    copy: "Occupancy, usage insights and operational intelligence for parking operators.",
+    icon: BarChart3,
+    tag: "Real-time",
+  },
+  {
+    title: "AI-Powered Vehicle Scanning",
+    copy: "ANPR identifies vehicles instantly, automates entry and exit, and improves security.",
+    icon: Camera,
+    tag: "AI",
+  },
+  {
+    title: "QR Based Entry & Exit",
+    copy: "Fast, contactless parking using secure QR verification.",
+    icon: QrCode,
+    tag: "< 1 sec",
+  },
+  {
+    title: "Secure Digital Payments",
+    copy: "UPI, cards, wallets and subscription-based payments, protected end to end.",
+    icon: CreditCard,
+    tag: "Secure",
+  },
+  {
+    title: "Enterprise Parking Platform",
+    copy: "One system for universities, apartments, hospitals, offices, malls and cities.",
+    icon: Building2,
+    tag: "Scale",
+  },
+  {
+    title: "Smart Notifications",
+    copy: "Real-time alerts, booking reminders, renewals and relevant parking updates.",
+    icon: Bell,
+    tag: "Aware",
+  },
+];
+
+const industries: { name: string; icon: IconType; copy: string; metric: string }[] = [
+  { name: "Universities", icon: GraduationCap, copy: "Frictionless campus movement for students and staff.", metric: "01" },
+  { name: "Apartments", icon: Building2, copy: "Resident, guest and visitor parking in one place.", metric: "02" },
+  { name: "Corporate Offices", icon: BarChart3, copy: "Smarter commutes and efficient space allocation.", metric: "03" },
+  { name: "Hospitals", icon: HeartPulse, copy: "Fast arrival when every minute matters.", metric: "04" },
+  { name: "Shopping Malls", icon: ShoppingBag, copy: "A better arrival and a calmer departure.", metric: "05" },
+  { name: "Metro Stations", icon: TrainFront, copy: "Connected first- and last-mile parking.", metric: "06" },
+  { name: "Smart Cities", icon: Sparkles, copy: "A living parking network built for urban scale.", metric: "07" },
+];
+
+const ecosystem: { label: string; detail: string; icon: IconType }[] = [
+  { label: "Consumer App", detail: "One-tap parking", icon: Smartphone },
+  { label: "Cloud Platform", detail: "Always in sync", icon: Sparkles },
+  { label: "Management Software", detail: "Control at scale", icon: BarChart3 },
+  { label: "AI Engine", detail: "Continuous intelligence", icon: ScanLine },
+  { label: "ANPR Cameras", detail: "Instant recognition", icon: Camera },
+  { label: "Real-Time Analytics", detail: "Live decisions", icon: Zap },
+  { label: "Smart Infrastructure", detail: "A connected city", icon: Building2 },
+];
+
+const testimonials = [
+  {
+    quote: "I used to circle campus for twenty minutes. With Gridee I know exactly where I’m going before I even leave home.",
+    name: "Aarav Mehta",
+    role: "Student · Bengaluru",
+    initials: "AM",
+  },
+  {
+    quote: "Gridee changed parking from a daily complaint into an invisible operation. Occupancy is clearer and entry is dramatically faster.",
+    name: "Ritika Rao",
+    role: "Campus Operations Lead",
+    initials: "RR",
+  },
+  {
+    quote: "The ANPR flow feels like magic. No calls at the gate, no paper logs—just verified vehicles moving through securely.",
+    name: "Karan Shah",
+    role: "Parking Facility Manager",
+    initials: "KS",
+  },
+];
+
+const faqs = [
+  ["How does Gridee work?", "Open the app to discover nearby parking, view live availability, reserve a space and enter using QR or number-plate recognition. Gridee keeps access, time and payment connected from arrival to exit."],
+  ["How does QR parking work?", "Every booking creates a secure, time-bound QR credential. Scan it at the entry or exit point for fast, contactless verification—no paper ticket required."],
+  ["What is ANPR?", "Automatic Number Plate Recognition uses computer vision to identify a registered vehicle at an enabled location. It can validate access and automate gates while maintaining a clear security record."],
+  ["How secure are payments?", "Payments are processed through trusted providers using encrypted connections. Gridee never exposes your full payment credentials to a parking operator."],
+  ["Can organizations use Gridee?", "Yes. Universities, apartments, offices, hospitals, malls, transit networks and cities can use Gridee to manage spaces, access, pricing, analytics and communication."],
+];
+
+const footerGroups = [
+  { title: "Company", links: ["About", "Careers", "Contact", "Blog", "Investor Relations"] },
+  { title: "Product", links: ["Features", "Security", "Pricing", "Updates"] },
+  { title: "Solutions", links: ["Universities", "Apartments", "Corporate", "Hospitals", "Smart Cities"] },
+  { title: "Resources", links: ["Support", "Privacy Policy", "Terms of Service", "Cookies"] },
+  { title: "Social", links: ["LinkedIn", "Instagram", "X", "YouTube"] },
+];
+
+function Logo() {
+  return (
+    <span className="logo" aria-label="Gridee home">
+      <span className="logo-mark" aria-hidden="true"><i /><i /><i /></span>
+      <span>Gridee</span>
+    </span>
+  );
+}
+
+function SectionEyebrow({ children }: { children: ReactNode }) {
+  return (
+    <div className="eyebrow">
+      <span className="eyebrow-dot" />
+      {children}
+    </div>
+  );
+}
+
+function Reveal({ children, className = "", delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
+  return (
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, y: 34 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-70px" }}
+      transition={{ duration: 0.8, delay, ease: [0.2, 0.8, 0.2, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function MagneticLink({ children, className = "", href = "#download", ariaLabel }: { children: ReactNode; className?: string; href?: string; ariaLabel?: string }) {
+  const reduced = useReducedMotion();
+  const ref = useRef<HTMLAnchorElement>(null);
+
+  function move(event: ReactMouseEvent<HTMLAnchorElement>) {
+    if (reduced || !ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const x = event.clientX - rect.left - rect.width / 2;
+    const y = event.clientY - rect.top - rect.height / 2;
+    ref.current.style.transform = `translate(${x * 0.14}px, ${y * 0.14}px)`;
+  }
+
+  function leave() {
+    if (ref.current) ref.current.style.transform = "translate(0, 0)";
+  }
+
+  return (
+    <a ref={ref} href={href} className={`magnetic ${className}`} onMouseMove={move} onMouseLeave={leave} aria-label={ariaLabel}>
+      {children}
+    </a>
+  );
+}
+
+function AppBadge({ store, light = false }: { store: "apple" | "google"; light?: boolean }) {
+  const isApple = store === "apple";
+  return (
+    <MagneticLink className={`store-badge ${light ? "light" : ""}`} ariaLabel={`Download Gridee on ${isApple ? "the App Store" : "Google Play"}`}>
+      <span className="store-symbol" aria-hidden="true">{isApple ? "●" : "▶"}</span>
+      <span>
+        <small>{isApple ? "Download on the" : "GET IT ON"}</small>
+        <strong>{isApple ? "App Store" : "Google Play"}</strong>
+      </span>
+    </MagneticLink>
+  );
+}
+
+function PhoneScreen({ screen = "home" }: { screen?: string }) {
+  return (
+    <div className={`phone-ui phone-ui-${screen}`}>
+      <div className="phone-status"><span>9:41</span><span>● ◒</span></div>
+      {screen === "home" && (
+        <>
+          <div className="app-hello"><div><small>Good morning</small><strong>Find your spot.</strong></div><span className="mini-avatar">A</span></div>
+          <div className="location-pill"><MapPin size={13} /><span>Near Koramangala</span><span>⌄</span></div>
+          <div className="map-panel">
+            <div className="map-road road-one" /><div className="map-road road-two" />
+            <span className="map-pin pin-one">12</span><span className="map-pin pin-two">8</span><span className="map-pin pin-three">24</span>
+            <div className="map-you"><i /></div>
+          </div>
+          <div className="nearby-row"><strong>Nearby parking</strong><small>See all</small></div>
+          <div className="parking-card"><div className="parking-photo"><CircleParking size={22} /></div><div><strong>Indigo Square</strong><small>240 m · 24 spaces</small></div><span>₹40</span></div>
+          <div className="phone-nav"><CircleParking size={16} /><QrCode size={16} /><Wallet size={16} /><History size={16} /></div>
+        </>
+      )}
+      {screen === "live" && (
+        <>
+          <div className="screen-heading"><small>LIVE PARKING</small><strong>Spaces near you</strong></div>
+          <div className="live-map">
+            <div className="live-street s1" /><div className="live-street s2" /><div className="live-street s3" />
+            {["6", "18", "4", "11"].map((n, i) => <span key={n} className={`live-space ls${i + 1}`}>{n}</span>)}
+            <div className="radar"><i /><b /></div>
+          </div>
+          <div className="sheet-card"><div className="grab" /><small>BEST MATCH</small><strong>Central Tech Park</strong><div className="space-meta"><span><i className="green-dot" /> 18 available</span><span>3 min</span></div><button>View parking <ArrowRight size={15} /></button></div>
+        </>
+      )}
+      {screen === "scanner" && (
+        <>
+          <div className="scanner-head"><ChevronLeft size={18} /><strong>Scan to enter</strong><span /></div>
+          <div className="scan-area"><div className="scan-corners" /><div className="scan-line" /><QrCode size={86} strokeWidth={1} /></div>
+          <p className="scan-copy">Align the parking QR code<br />inside the frame</p>
+          <div className="verified-pill"><ShieldCheck size={14} /> Secure Gridee verification</div>
+        </>
+      )}
+      {screen === "wallet" && (
+        <>
+          <div className="screen-heading"><small>GRIDEe WALLET</small><strong>Your balance</strong></div>
+          <div className="wallet-card"><span>Available balance</span><strong>₹ 1,840</strong><small>•••• 4821</small><div className="wallet-orb" /></div>
+          <button className="add-money">+ Add money</button>
+          <div className="activity-head"><strong>Recent activity</strong><small>View all</small></div>
+          {[['P','Phoenix Mall','− ₹60'],['C','Campus North','− ₹35'],['+','Wallet top-up','+ ₹500']].map((x) => <div className="transaction" key={x[1]}><i>{x[0]}</i><span><strong>{x[1]}</strong><small>Today</small></span><b>{x[2]}</b></div>)}
+        </>
+      )}
+      {screen === "booking" && (
+        <>
+          <div className="scanner-head"><ChevronLeft size={18} /><strong>Your booking</strong><span /></div>
+          <div className="booking-hero"><div className="booking-ring"><Check size={28} /></div><small>SPACE RESERVED</small><strong>B2 · 118</strong><span>Indigo Square</span></div>
+          <div className="booking-route"><div><MapPin size={14} /><span><small>ENTRY</small><strong>Gate 02</strong></span></div><div><Clock3 size={14} /><span><small>ARRIVE BY</small><strong>10:45 AM</strong></span></div></div>
+          <div className="vehicle-row"><span>KA 01 <strong>MH 2048</strong></span><small>White Nexon</small></div>
+          <button className="directions-button">Get directions <ArrowUpRight size={15} /></button>
+        </>
+      )}
+      {screen === "history" && (
+        <>
+          <div className="screen-heading"><small>ACTIVITY</small><strong>Parking history</strong></div>
+          <div className="history-tabs"><span className="active">All</span><span>Bookings</span><span>Payments</span></div>
+          {[['14 JUL','Indigo Square','₹ 40','42 min'],['12 JUL','Campus North','₹ 80','2h 10m'],['09 JUL','Metro Green Line','₹ 120','4h 06m'],['05 JUL','Forum South','₹ 60','1h 31m']].map((x, i) => <div className="history-item" key={x[0]}><div className="history-date">{x[0]}</div><i className={i === 0 ? 'active' : ''}><Car size={15} /></i><div><strong>{x[1]}</strong><small>{x[3]}</small></div><b>{x[2]}</b></div>)}
+        </>
+      )}
+      {screen === "subscription" && (
+        <>
+          <div className="screen-heading"><small>GRIDEe PLUS</small><strong>Park without limits.</strong></div>
+          <div className="sub-visual"><div className="sub-p"><CircleParking size={42} /><i /></div><span>PLUS</span></div>
+          <div className="plan-card"><span>UNLIMITED MONTHLY</span><strong>₹999 <small>/ month</small></strong><ul><li><Check size={13} /> Unlimited sessions</li><li><Check size={13} /> Priority spaces</li><li><Check size={13} /> Zero convenience fee</li></ul><button>Start membership</button></div>
+          <small className="cancel-copy">Cancel anytime · Renews monthly</small>
+        </>
+      )}
+    </div>
+  );
+}
+
+function PhoneMockup({ screen = "home", className = "" }: { screen?: string; className?: string }) {
+  return (
+    <div className={`phone-frame ${className}`}>
+      <div className="phone-button phone-button-a" /><div className="phone-button phone-button-b" />
+      <div className="phone-screen"><div className="dynamic-island" /><PhoneScreen screen={screen} /></div>
+    </div>
+  );
+}
+
+function Counter({ value, suffix }: { value: number; suffix: string }) {
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.5 });
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    let frame = 0;
+    const started = performance.now();
+    const animate = (now: number) => {
+      const progress = Math.min((now - started) / 1700, 1);
+      const eased = 1 - Math.pow(1 - progress, 4);
+      setDisplay(Math.round(value * eased));
+      if (progress < 1) frame = requestAnimationFrame(animate);
+    };
+    frame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frame);
+  }, [inView, value]);
+
+  return <strong ref={ref}>{display.toLocaleString("en-IN")}{suffix}</strong>;
+}
+
+function StoryStage({ step, index }: { step: typeof storySteps[number]; index: number }) {
+  const Icon = step.icon;
+  return (
+    <motion.article className="story-step" initial={{ opacity: 0.25 }} whileInView={{ opacity: 1 }} viewport={{ margin: "-35% 0px -35% 0px" }} transition={{ duration: 0.5 }}>
+      <div className="story-number">0{index + 1}</div>
+      <div className="story-icon"><Icon size={22} /></div>
+      <div><h3>{step.title}</h3><p>{step.copy}</p></div>
+    </motion.article>
+  );
+}
+
+function ProductStep({ screen, index, setActive }: { screen: typeof screens[number]; index: number; setActive: (key: string) => void }) {
+  return (
+    <motion.article
+      className="product-step"
+      onViewportEnter={() => setActive(screen.key)}
+      viewport={{ margin: "-42% 0px -42% 0px" }}
+      initial={{ opacity: 0.2 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <span>0{index + 1}</span>
+      <h3>{screen.title}</h3>
+      <p>{screen.kicker}</p>
+    </motion.article>
+  );
+}
+
+function QRPattern() {
+  const cells = Array.from({ length: 169 }, (_, i) => {
+    const row = Math.floor(i / 13);
+    const col = i % 13;
+    const finder = (row < 4 && col < 4) || (row < 4 && col > 8) || (row > 8 && col < 4);
+    return finder || ((row * 3 + col * 5 + row * col) % 7 < 3);
+  });
+  return <div className="qr-pattern" aria-hidden="true">{cells.map((on, i) => <i key={i} className={on ? "on" : ""} />)}</div>;
+}
+
+export default function Home() {
+  const reduced = useReducedMotion();
+  const [loading, setLoading] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [activeScreen, setActiveScreen] = useState("home");
+  const [carousel, setCarousel] = useState(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const rootRef = useRef<HTMLElement>(null);
+  const storyRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: storyRef, offset: ["start end", "end start"] });
+  const carY = useTransform(scrollYProgress, [0.08, 0.92], [20, 440]);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setLoading(false), reduced ? 100 : 1450);
+    return () => window.clearTimeout(timer);
+  }, [reduced]);
+
+  useEffect(() => {
+    if (reduced) return;
+    const lenis = new Lenis({ duration: 1.15, smoothWheel: true });
+    let frame = 0;
+    const raf = (time: number) => { lenis.raf(time); frame = requestAnimationFrame(raf); };
+    frame = requestAnimationFrame(raf);
+    return () => { cancelAnimationFrame(frame); lenis.destroy(); };
+  }, [reduced]);
+
+  useEffect(() => {
+    if (reduced) return;
+    gsap.registerPlugin(ScrollTrigger);
+    const ctx = gsap.context(() => {
+      gsap.to(".hero-phone-primary", { yPercent: 12, rotate: -2, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 1 } });
+      gsap.to(".hero-phone-secondary", { yPercent: -8, rotate: 7, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 1 } });
+      gsap.to(".grid-car-a", { x: "48vw", repeat: -1, duration: 11, ease: "none" });
+      gsap.to(".grid-car-b", { y: "-32vh", repeat: -1, duration: 14, ease: "none" });
+    }, rootRef);
+    return () => ctx.revert();
+  }, [reduced]);
+
+  function pointerMove(event: ReactMouseEvent<HTMLElement>) {
+    if (!rootRef.current || reduced) return;
+    rootRef.current.style.setProperty("--mouse-x", `${event.clientX}px`);
+    rootRef.current.style.setProperty("--mouse-y", `${event.clientY}px`);
+  }
+
+  return (
+    <main ref={rootRef} onMouseMove={pointerMove}>
+      <AnimatePresence>{loading && <motion.div className="loader" exit={{ opacity: 0 }} transition={{ duration: 0.55 }}><motion.div className="loader-mark" initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}><Logo /></motion.div><div className="loader-line"><motion.i initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.1, ease: [0.6, 0, 0.2, 1] }} /></div></motion.div>}</AnimatePresence>
+      <div className="mouse-glow" aria-hidden="true" />
+
+      <header className="navbar">
+        <a href="#top" className="nav-logo"><Logo /></a>
+        <nav className="desktop-nav" aria-label="Primary navigation">
+          {navItems.map(([label, href]) => <a key={label} href={href}>{label}</a>)}
+        </nav>
+        <div className="nav-actions">
+          <a href="#footer" className="nav-contact">Talk to us</a>
+          <MagneticLink className="nav-download">Get the app <ArrowUpRight size={15} /></MagneticLink>
+          <button className="menu-button" aria-label="Toggle navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</button>
+        </div>
+        <AnimatePresence>{menuOpen && <motion.nav className="mobile-nav" initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }}>{navItems.map(([label, href]) => <a key={label} href={href} onClick={() => setMenuOpen(false)}>{label}<ArrowRight size={16} /></a>)}<a href="#download" onClick={() => setMenuOpen(false)}>Get the app<ArrowUpRight size={16} /></a></motion.nav>}</AnimatePresence>
+      </header>
+
+      <section className="hero" id="top">
+        <div className="parking-grid" aria-hidden="true">
+          {Array.from({ length: 28 }).map((_, i) => <i key={i} className={i === 10 || i === 18 ? "slot-live" : ""} />)}
+          <div className="grid-car grid-car-a"><span /><span /></div>
+          <div className="grid-car grid-car-b"><span /><span /></div>
+        </div>
+        <div className="hero-glow" aria-hidden="true" />
+        <div className="hero-inner">
+          <div className="hero-copy">
+            <motion.div className="announcement" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.4 }}><i /> Building India&apos;s parking OS <ArrowRight size={14} /></motion.div>
+            <h1 aria-label="Parking. Simplified">
+              <span className="hero-line"><motion.span initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 1, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}>Parking.</motion.span></span>
+              <span className="hero-line green"><motion.span initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 1, delay: 1.32, ease: [0.16, 1, 0.3, 1] }}>Simplified</motion.span><motion.i initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 2, duration: 0.8 }} /></span>
+            </h1>
+            <motion.p className="hero-sub" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.65, duration: 0.8 }}>Gridee is building the future of smart parking for universities, apartments, businesses and cities.</motion.p>
+            <motion.div className="hero-buttons" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.8 }}><AppBadge store="apple" /><AppBadge store="google" /></motion.div>
+            <motion.div className="hero-note" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }}><span className="avatar-stack"><i>R</i><i>A</i><i>K</i></span><span><b>4.9</b> loved by early riders</span></motion.div>
+          </div>
+          <motion.div className="hero-devices" initial={{ opacity: 0, scale: 0.88, y: 30 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ delay: 1.4, duration: 1.15, ease: [0.16, 1, 0.3, 1] }}>
+            <div className="phone-orbit orbit-one" /><div className="phone-orbit orbit-two" />
+            <PhoneMockup screen="home" className="hero-phone-primary" />
+            <PhoneMockup screen="scanner" className="hero-phone-secondary" />
+            <div className="floating-status status-a"><span className="pulse-dot" /><div><small>SPACE FOUND</small><strong>B2 · 118</strong></div></div>
+            <div className="floating-status status-b"><ShieldCheck size={17} /><div><small>ENTRY VERIFIED</small><strong>0.8 seconds</strong></div></div>
+          </motion.div>
+        </div>
+        <a href="#trusted" className="scroll-cue"><span>Scroll to explore</span><ArrowDown size={15} /></a>
+      </section>
+
+      <section className="trusted section-shell" id="trusted">
+        <Reveal className="trusted-heading"><SectionEyebrow>Moving with Gridee</SectionEyebrow><p>Built around real people.<br />Proven in the real world.</p></Reveal>
+        <div className="stats-grid">
+          {stats.map((stat, i) => <Reveal className="stat-card" key={stat.label} delay={i * 0.08}><Counter value={stat.value} suffix={stat.suffix} /><span>{stat.label}</span><i /></Reveal>)}
+        </div>
+      </section>
+
+      <section className="story section-shell" ref={storyRef}>
+        <div className="story-intro">
+          <Reveal><SectionEyebrow>The everyday, reimagined</SectionEyebrow><h2>From searching<br />to parked—<em>one flow.</em></h2><p>What used to feel fragmented now feels invisible. Gridee coordinates every moment from intent to arrival.</p></Reveal>
+          <div className="journey-visual" aria-hidden="true">
+            <div className="journey-lane"><i /><i /><i /><i /><i /><i /></div>
+            <motion.div className="journey-car" style={{ y: carY }}><Car size={18} /></motion.div>
+            <div className="journey-label top">SEARCH</div><div className="journey-label bottom">PARKED</div>
+          </div>
+        </div>
+        <div className="story-steps">{storySteps.map((step, i) => <StoryStage step={step} index={i} key={step.title} />)}</div>
+      </section>
+
+      <section className="product" id="product">
+        <div className="product-bg-copy" aria-hidden="true">GRIDEe</div>
+        <div className="section-shell product-shell">
+          <div className="product-device-sticky">
+            <div className="device-halo" />
+            <AnimatePresence mode="wait"><motion.div key={activeScreen} initial={{ opacity: 0, scale: 0.96, filter: "blur(8px)" }} animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }} exit={{ opacity: 0, scale: 1.02, filter: "blur(8px)" }} transition={{ duration: 0.42 }}><PhoneMockup screen={activeScreen} /></motion.div></AnimatePresence>
+            <span className="device-caption">The Gridee App <i /></span>
+          </div>
+          <div className="product-copy">
+            <div className="product-heading"><SectionEyebrow>One app. Every arrival.</SectionEyebrow><h2>Your parking life,<br /><em>beautifully simple.</em></h2></div>
+            {screens.map((screen, i) => <ProductStep screen={screen} index={i} setActive={setActiveScreen} key={screen.key} />)}
+          </div>
+        </div>
+      </section>
+
+      <section className="features section-shell" id="features">
+        <Reveal className="section-heading-row"><div><SectionEyebrow>What we build</SectionEyebrow><h2>The intelligence<br />behind every space.</h2></div><p>Purpose-built infrastructure for the full parking journey—simple for drivers, powerful for operators.</p></Reveal>
+        <div className="feature-grid">
+          {features.map((feature, i) => { const Icon = feature.icon; return <Reveal key={feature.title} delay={(i % 4) * 0.05}><article className={`feature-card ${i === 0 || i === 3 ? "feature-wide" : ""}`}><div className="feature-top"><span className="feature-icon"><Icon size={22} /></span><span className="feature-tag"><i /> {feature.tag}</span></div><h3>{feature.title}</h3><p>{feature.copy}</p><div className="feature-arrow"><ArrowUpRight size={18} /></div>{i === 0 && <div className="feature-mini-map"><i /><i /><i /><i /></div>}{i === 3 && <div className="feature-scan"><span>KA 01 MH 2048</span><i /></div>}</article></Reveal>; })}
+        </div>
+      </section>
+
+      <section className="industries" id="solutions">
+        <div className="section-shell">
+          <Reveal className="industries-head"><SectionEyebrow>Built for everywhere</SectionEyebrow><h2>One platform.<br /><em>Every kind of place.</em></h2></Reveal>
+          <div className="industry-list">
+            {industries.map((industry) => { const Icon = industry.icon; return <motion.article className="industry-card" key={industry.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}><span className="industry-number">{industry.metric}</span><span className="industry-icon"><Icon size={24} /></span><div><h3>{industry.name}</h3><p>{industry.copy}</p></div><span className="industry-open"><ArrowUpRight /></span></motion.article>; })}
+          </div>
+        </div>
+      </section>
+
+      <section className="technology section-shell" id="technology">
+        <Reveal className="technology-head"><SectionEyebrow>The Gridee ecosystem</SectionEyebrow><h2>From a single tap<br />to a smarter city.</h2><p>Every layer talks to every other—turning disconnected parking into one intelligent, responsive network.</p></Reveal>
+        <div className="ecosystem">
+          <div className="ecosystem-spine" />
+          {ecosystem.map((item, i) => { const Icon = item.icon; return <Reveal className="eco-wrap" key={item.label} delay={i * 0.04}><article className="eco-card"><span className="eco-index">0{i + 1}</span><div className="eco-icon"><Icon size={20} /></div><div><h3>{item.label}</h3><p>{item.detail}</p></div><span className="eco-state">CONNECTED</span></article>{i < ecosystem.length - 1 && <ChevronDown className="eco-arrow" size={18} />}</Reveal>; })}
+        </div>
+        <Reveal className="tech-status"><span><i /> All systems live</span><span>Gridee Network / India</span><strong>99.99% uptime</strong></Reveal>
+      </section>
+
+      <section className="vision" id="vision">
+        <div className="vision-orbit" aria-hidden="true"><i /><i /><i /></div>
+        <div className="vision-copy section-shell">
+          <SectionEyebrow>Our north star</SectionEyebrow>
+          <motion.p initial={{ opacity: 0.18 }} whileInView={{ opacity: 1 }} viewport={{ margin: "-35% 0px -35% 0px" }}>We believe parking should<br />disappear into the background.</motion.p>
+          {["No searching.", "No waiting.", "No paper tickets."].map((line, i) => <motion.h3 key={line} initial={{ opacity: 0.12, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ margin: "-42% 0px -42% 0px" }} transition={{ duration: 0.7 }}>{line}</motion.h3>)}
+          <div className="vision-finale">{["Just arrive.", "Park.", "Go."].map((line, i) => <motion.strong key={line} initial={{ opacity: 0, y: 60 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.16, duration: 0.8 }}>{line}</motion.strong>)}</div>
+        </div>
+      </section>
+
+      <section className="screenshots section-shell">
+        <Reveal className="screenshots-head"><div><SectionEyebrow>Designed for motion</SectionEyebrow><h2>Everything you need.<br />Nothing you don&apos;t.</h2></div><div className="carousel-controls"><button aria-label="Previous screen" onClick={() => setCarousel((carousel - 1 + screens.length) % screens.length)}><ChevronLeft /></button><button aria-label="Next screen" onClick={() => setCarousel((carousel + 1) % screens.length)}><ChevronRight /></button></div></Reveal>
+        <div className="screenshot-stage">
+          <div className="screenshot-label"><span>0{carousel + 1} / 0{screens.length}</span><h3>{screens[carousel].title}</h3><p>{screens[carousel].kicker}</p></div>
+          <motion.div className="carousel-phone" key={carousel} initial={{ opacity: 0, x: 40, rotate: 5 }} animate={{ opacity: 1, x: 0, rotate: 0 }} transition={{ duration: 0.55 }}><PhoneMockup screen={screens[carousel].key} /></motion.div>
+          <div className="carousel-list">{screens.map((s, i) => <button key={s.key} className={i === carousel ? "active" : ""} onClick={() => setCarousel(i)} aria-label={`Show ${s.title} screen`}><span>0{i + 1}</span>{s.title}</button>)}</div>
+        </div>
+      </section>
+
+      <section className="testimonials">
+        <div className="section-shell">
+          <Reveal className="testimonials-head"><SectionEyebrow>People in motion</SectionEyebrow><h2>Parking made better,<br />one arrival at a time.</h2></Reveal>
+          <div className="testimonial-grid">{testimonials.map((item, i) => <Reveal key={item.name} delay={i * 0.08}><article className="testimonial-card"><div className="quote-mark">“</div><blockquote>{item.quote}</blockquote><div className="person"><span>{item.initials}</span><div><strong>{item.name}</strong><small>{item.role}</small></div><i><Check size={11} /></i></div></article></Reveal>)}</div>
+        </div>
+      </section>
+
+      <section className="faq section-shell" id="faq">
+        <Reveal className="faq-intro"><SectionEyebrow>Questions, answered</SectionEyebrow><h2>The simple<br />details.</h2><p>Still curious? Our team would love to talk.</p><a href="mailto:hello@gridee.app">hello@gridee.app <ArrowUpRight size={15} /></a></Reveal>
+        <div className="faq-list">{faqs.map(([q, a], i) => <Reveal key={q}><article className={`faq-item ${openFaq === i ? "open" : ""}`}><button onClick={() => setOpenFaq(openFaq === i ? null : i)} aria-expanded={openFaq === i}><span>0{i + 1}</span><strong>{q}</strong><ChevronDown size={20} /></button><AnimatePresence initial={false}>{openFaq === i && <motion.div className="faq-answer" initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}><p>{a}</p></motion.div>}</AnimatePresence></article></Reveal>)}</div>
+      </section>
+
+      <section className="download" id="download">
+        <div className="download-grid" aria-hidden="true" />
+        <div className="download-glow" aria-hidden="true" />
+        <div className="section-shell download-shell">
+          <Reveal className="download-copy"><SectionEyebrow>Available on iOS & Android</SectionEyebrow><h2>Experience Smarter<br />Parking <em>Today.</em></h2><p>Join the movement toward effortless arrivals.<br />Your next space is already waiting.</p><div className="download-actions"><AppBadge store="apple" light /><AppBadge store="google" light /><div className="download-qr"><QRPattern /><span><small>SCAN TO</small><strong>DOWNLOAD</strong></span></div></div></Reveal>
+          <Reveal className="download-device"><div className="download-rings"><i /><i /><i /></div><PhoneMockup screen="home" /><div className="download-float"><span><Check size={14} /></span><div><small>READY WHEN YOU ARE</small><strong>24 spaces nearby</strong></div></div></Reveal>
+        </div>
+      </section>
+
+      <footer id="footer">
+        <div className="section-shell footer-shell">
+          <div className="footer-top"><div className="footer-brand"><a href="#top"><Logo /></a><p>The operating system<br />for smart parking.</p><span><i /> Building for India · 2026</span></div><div className="footer-columns">{footerGroups.map((group) => <div key={group.title}><h3>{group.title}</h3>{group.links.map((link) => <a href={link === "Features" ? "#features" : link === "Support" ? "mailto:hello@gridee.app" : "#top"} key={link}>{link}</a>)}</div>)}</div></div>
+          <div className="footer-download"><div><strong>Gridee in your pocket.</strong><span>Available for iOS and Android.</span></div><div><AppBadge store="apple" /><AppBadge store="google" /></div></div>
+          <div className="footer-bottom"><span>© 2026 Gridee Technologies Pvt. Ltd.</span><span>Made for better arrivals.</span><a href="#top">Back to top <ArrowUpRight size={13} /></a></div>
+          <div className="footer-wordmark" aria-hidden="true">Gridee</div>
+        </div>
+      </footer>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "SoftwareApplication", name: "Gridee", applicationCategory: "TravelApplication", operatingSystem: "iOS, Android", description: "The operating system for smart parking.", offers: { "@type": "Offer", price: "0", priceCurrency: "INR" } }) }} />
+    </main>
+  );
+}
