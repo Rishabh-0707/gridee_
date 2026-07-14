@@ -65,10 +65,10 @@ const navItems = [
 ];
 
 const stats = [
-  { value: 3400, suffix: "+", label: "Students" },
-  { value: 10000, suffix: "+", label: "Parking Sessions" },
-  { value: 98, suffix: "%", label: "Successful Experience" },
-  { value: 1000, suffix: "+", label: "Parking Locations" },
+  { value: 3400, suffix: "+", label: "students in early communities" },
+  { value: 10000, suffix: "+", label: "arrivals handled" },
+  { value: 98, suffix: "%", label: "sessions completed smoothly" },
+  { value: 1000, suffix: "+", label: "spaces mapped" },
 ];
 
 const storySteps: { title: string; copy: string; icon: IconType }[] = [
@@ -187,22 +187,22 @@ const ecosystem: { label: string; detail: string; icon: IconType }[] = [
 
 const testimonials = [
   {
-    quote: "I used to circle campus for twenty minutes. With Gridee I know exactly where I’m going before I even leave home.",
-    name: "Aarav Mehta",
-    role: "Student · Bengaluru",
-    initials: "AM",
+    quote: "I used to leave early just to account for parking. Now I check before I leave and head straight to the right gate.",
+    name: "A student rider",
+    role: "Campus pilot · Bengaluru",
+    initials: "SR",
   },
   {
-    quote: "Gridee changed parking from a daily complaint into an invisible operation. Occupancy is clearer and entry is dramatically faster.",
-    name: "Ritika Rao",
-    role: "Campus Operations Lead",
-    initials: "RR",
+    quote: "The best sign is that the security desk gets fewer calls. People know where to go, and we can finally see what is happening.",
+    name: "An operations lead",
+    role: "University parking team",
+    initials: "OL",
   },
   {
-    quote: "The ANPR flow feels like magic. No calls at the gate, no paper logs—just verified vehicles moving through securely.",
-    name: "Karan Shah",
-    role: "Parking Facility Manager",
-    initials: "KS",
+    quote: "The number plate check saves us from maintaining another paper register. That sounds small until you do it every day.",
+    name: "A facility manager",
+    role: "Residential community",
+    initials: "FM",
   },
 ];
 
@@ -503,14 +503,13 @@ export default function Home() {
         <div className="hero-glow" aria-hidden="true" />
         <div className="hero-inner">
           <div className="hero-copy">
-            <motion.div className="announcement" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.4 }}><i /> Building India&apos;s parking OS <ArrowRight size={14} /></motion.div>
-            <h1 aria-label="Parking. Simplified">
-              <span className="hero-line"><motion.span initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 1, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}>Parking.</motion.span></span>
-              <span className="hero-line green"><motion.span initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 1, delay: 1.32, ease: [0.16, 1, 0.3, 1] }}>Simplified</motion.span><motion.i initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 2, duration: 0.8 }} /></span>
+            <h1 aria-label="Parking shouldn't start with a U-turn">
+              <span className="hero-line"><motion.span initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 1, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}>Skip the</motion.span></span>
+              <span className="hero-line green"><motion.span initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 1, delay: 1.32, ease: [0.16, 1, 0.3, 1] }}>U-turn.</motion.span><motion.i initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 2, duration: 0.8 }} /></span>
             </h1>
-            <motion.p className="hero-sub" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.65, duration: 0.8 }}>Gridee is building the future of smart parking for universities, apartments, businesses and cities.</motion.p>
+            <motion.p className="hero-sub" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.65, duration: 0.8 }}>See a free space before you arrive. Reserve it, enter without the paper-ticket shuffle, and get on with your day.</motion.p>
             <motion.div className="hero-buttons" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.8 }}><AppBadge store="apple" /><AppBadge store="google" /></motion.div>
-            <motion.div className="hero-note" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }}><span className="avatar-stack"><i>R</i><i>A</i><i>K</i></span><span><b>4.9</b> loved by early riders</span></motion.div>
+            <motion.div className="human-note" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }}><span>Field note · 8:42 AM</span><p>Made for the five minutes before class, a meeting, or visiting hours.</p></motion.div>
           </div>
           <motion.div className="hero-devices" initial={{ opacity: 0, scale: 0.88, y: 30 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ delay: 1.4, duration: 1.15, ease: [0.16, 1, 0.3, 1] }}>
             <div className="phone-orbit orbit-one" /><div className="phone-orbit orbit-two" />
@@ -524,7 +523,7 @@ export default function Home() {
       </section>
 
       <section className="trusted section-shell" id="trusted">
-        <Reveal className="trusted-heading"><SectionEyebrow>Moving with Gridee</SectionEyebrow><p>Built around real people.<br />Proven in the real world.</p></Reveal>
+        <Reveal className="trusted-heading"><SectionEyebrow>What we have learned so far</SectionEyebrow><p>Parking is rarely the destination.<br />It should not take over the journey.</p></Reveal>
         <div className="stats-grid">
           {stats.map((stat, i) => <Reveal className="stat-card" key={stat.label} delay={i * 0.08}><Counter value={stat.value} suffix={stat.suffix} /><span>{stat.label}</span><i /></Reveal>)}
         </div>
@@ -532,7 +531,7 @@ export default function Home() {
 
       <section className="story section-shell" ref={storyRef}>
         <div className="story-intro">
-          <Reveal><SectionEyebrow>The everyday, reimagined</SectionEyebrow><h2>From searching<br />to parked—<em>one flow.</em></h2><p>What used to feel fragmented now feels invisible. Gridee coordinates every moment from intent to arrival.</p></Reveal>
+          <Reveal><SectionEyebrow>One less daily headache</SectionEyebrow><h2>From “where do I park?”<br />to <em>right this way.</em></h2><p>Gridee connects availability, entry and payment so drivers do less guessing—and gate teams answer fewer calls.</p></Reveal>
           <div className="journey-visual" aria-hidden="true">
             <div className="journey-lane"><i /><i /><i /><i /><i /><i /></div>
             <motion.div className="journey-car" style={{ y: carY }}><Car size={18} /></motion.div>
@@ -558,7 +557,7 @@ export default function Home() {
       </section>
 
       <section className="features section-shell" id="features">
-        <Reveal className="section-heading-row"><div><SectionEyebrow>What we build</SectionEyebrow><h2>The intelligence<br />behind every space.</h2></div><p>Purpose-built infrastructure for the full parking journey—simple for drivers, powerful for operators.</p></Reveal>
+        <Reveal className="section-heading-row"><div><SectionEyebrow>Under the bonnet</SectionEyebrow><h2>The practical bits<br />that make it work.</h2></div><p>Live availability for drivers. Clear controls for operators. No jargon required at the gate.</p></Reveal>
         <div className="feature-grid">
           {features.map((feature, i) => { const Icon = feature.icon; return <Reveal key={feature.title} delay={(i % 4) * 0.05}><article className={`feature-card ${i === 0 || i === 3 ? "feature-wide" : ""}`}><div className="feature-top"><span className="feature-icon"><Icon size={22} /></span><span className="feature-tag"><i /> {feature.tag}</span></div><h3>{feature.title}</h3><p>{feature.copy}</p><div className="feature-arrow"><ArrowUpRight size={18} /></div>{i === 0 && <div className="feature-mini-map"><i /><i /><i /><i /></div>}{i === 3 && <div className="feature-scan"><span>KA 01 MH 2048</span><i /></div>}</article></Reveal>; })}
         </div>
@@ -603,7 +602,7 @@ export default function Home() {
 
       <section className="testimonials">
         <div className="section-shell">
-          <Reveal className="testimonials-head"><SectionEyebrow>People in motion</SectionEyebrow><h2>Parking made better,<br />one arrival at a time.</h2></Reveal>
+          <Reveal className="testimonials-head"><SectionEyebrow>Things we hear at the gate</SectionEyebrow><h2>Small changes.<br />Better mornings.</h2></Reveal>
           <div className="testimonial-grid">{testimonials.map((item, i) => <Reveal key={item.name} delay={i * 0.08}><article className="testimonial-card"><div className="quote-mark">“</div><blockquote>{item.quote}</blockquote><div className="person"><span>{item.initials}</span><div><strong>{item.name}</strong><small>{item.role}</small></div><i><Check size={11} /></i></div></article></Reveal>)}</div>
         </div>
       </section>

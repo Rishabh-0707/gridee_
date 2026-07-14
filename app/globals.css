@@ -381,37 +381,12 @@ main {
   z-index: 2;
 }
 
-.announcement {
-  width: max-content;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  margin-bottom: 30px;
-  padding: 8px 11px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.035);
-  color: rgba(255, 255, 255, 0.65);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 9px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.announcement i {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 12px var(--green);
-}
-
 .hero h1 {
   margin: 0;
-  font-size: clamp(68px, 8.1vw, 128px);
-  font-weight: 650;
-  line-height: 0.82;
-  letter-spacing: -0.085em;
+  font-size: clamp(66px, 7.7vw, 120px);
+  font-weight: 610;
+  line-height: 0.86;
+  letter-spacing: -0.075em;
 }
 
 .hero-line {
@@ -450,6 +425,32 @@ main {
   font-size: clamp(16px, 1.4vw, 20px);
   line-height: 1.65;
   letter-spacing: -0.02em;
+}
+
+.human-note {
+  max-width: 430px;
+  margin-top: 30px;
+  padding: 18px 0 0 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  border-left: 3px solid var(--green);
+  transform: rotate(-0.7deg);
+}
+
+.human-note span {
+  color: var(--green-bright);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.human-note p {
+  margin: 8px 0 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1.45;
 }
 
 .hero-buttons {
@@ -898,6 +899,9 @@ main {
   border-right: 1px solid var(--line);
 }
 
+.stat-card:nth-child(2) { transform: translateY(14px); }
+.stat-card:nth-child(4) { transform: translateY(-10px); }
+
 .stat-card:not(:first-child) { padding-left: 28px; }
 .stat-card:last-child { border-right: 0; }
 .stat-card strong { display: block; font-size: clamp(38px, 4.2vw, 66px); font-weight: 520; line-height: 1; letter-spacing: -0.075em; }
@@ -1271,7 +1275,6 @@ footer{position:relative;padding:100px 0 0;border-top:1px solid var(--line);back
   .hero-inner { width: calc(100% - 28px); }
   .navbar { height:56px; padding-left:16px; border-radius:15px; }
   .logo { font-size:18px; }
-  .announcement { margin-bottom:24px; }
   .hero { padding-top:125px; }
   .hero h1 { font-size:17.2vw; line-height:.86; }
   .hero-sub { margin-top:28px; font-size:15px; }
