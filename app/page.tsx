@@ -503,9 +503,9 @@ export default function Home() {
         <div className="hero-glow" aria-hidden="true" />
         <div className="hero-inner">
           <div className="hero-copy">
-            <h1 aria-label="Parking shouldn't start with a U-turn">
-              <span className="hero-line"><motion.span initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 1, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}>Skip the</motion.span></span>
-              <span className="hero-line green"><motion.span initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 1, delay: 1.32, ease: [0.16, 1, 0.3, 1] }}>U-turn.</motion.span><motion.i initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 2, duration: 0.8 }} /></span>
+            <h1 aria-label="Parking. Simplified">
+              <span className="hero-line"><motion.span initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 1, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}>Parking.</motion.span></span>
+              <span className="hero-line green"><motion.span initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 1, delay: 1.32, ease: [0.16, 1, 0.3, 1] }}>Simplified</motion.span><motion.i initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 2, duration: 0.8 }} /></span>
             </h1>
             <motion.p className="hero-sub" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.65, duration: 0.8 }}>See a free space before you arrive. Reserve it, enter without the paper-ticket shuffle, and get on with your day.</motion.p>
             <motion.div className="hero-buttons" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.8 }}><AppBadge store="apple" /><AppBadge store="google" /></motion.div>
