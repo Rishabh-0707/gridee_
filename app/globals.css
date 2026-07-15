@@ -453,13 +453,6 @@ main {
   line-height: 1.45;
 }
 
-.hero-buttons {
-  margin-top: 34px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
 .store-badge {
   min-width: 174px;
   height: 58px;
@@ -1278,7 +1271,6 @@ footer{position:relative;padding:100px 0 0;border-top:1px solid var(--line);back
   .hero { padding-top:125px; }
   .hero h1 { font-size:17.2vw; line-height:.86; }
   .hero-sub { margin-top:28px; font-size:15px; }
-  .hero-buttons { gap:8px; }
   .store-badge { min-width:0; flex:1; height:54px; padding:0 12px; gap:7px; }
   .store-symbol { width:20px; font-size:16px; }
   .store-badge strong { font-size:13px; }
