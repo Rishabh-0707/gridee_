@@ -218,7 +218,6 @@ const footerGroups = [
 function Logo() {
   return (
     <span className="logo" aria-label="Gridee home">
-      <span className="logo-mark" aria-hidden="true"><i /><i /><i /></span>
       <span>Gridee</span>
     </span>
   );

@@ -113,30 +113,6 @@ main {
   letter-spacing: -0.06em;
 }
 
-.logo-mark {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(2, 6px);
-  grid-template-rows: repeat(2, 6px);
-  gap: 2px;
-  width: 14px;
-  height: 14px;
-}
-
-.logo-mark i {
-  border: 1.5px solid currentColor;
-  border-radius: 2px;
-}
-
-.logo-mark i:first-child {
-  grid-row: span 2;
-}
-
-.logo-mark i:last-child {
-  background: var(--green);
-  border-color: var(--green);
-}
-
 .navbar {
   position: fixed;
   z-index: 100;
@@ -1592,10 +1568,6 @@ footer { background: var(--ink-deep); }
   font-size: 17px;
   font-weight: 620;
   letter-spacing: -.045em;
-}
-
-.navbar .logo-mark {
-  transform: scale(.88);
 }
 
 .desktop-nav {

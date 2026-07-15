@@ -34,7 +34,6 @@ export async function generateMetadata(): Promise<Metadata> {
     authors: [{ name: "Gridee" }],
     creator: "Gridee",
     alternates: { canonical: "/" },
-    icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
     openGraph: {
       type: "website",
       url: origin,
