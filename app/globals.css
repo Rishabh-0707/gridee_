@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
 :root {
-  --ink: #050505;
+  --ink: #34373c;
+  --ink-deep: #2b2e33;
+  --ink-panel: #3d4046;
   --paper: #f4f4f0;
   --white: #ffffff;
   --muted: #a0a0a0;
@@ -1550,3 +1552,27 @@ footer{position:relative;padding:100px 0 0;border-top:1px solid var(--line);back
   .industry-open { display: none; }
   .vision-finale { flex-direction: column; }
 }
+
+/* Graphite theme — softer than black while preserving the product UI contrast. */
+.loader { background: var(--ink-deep); }
+.loader-line { background: rgba(255,255,255,.08); }
+.navbar { background: rgba(49,52,57,.78); border-color: rgba(255,255,255,.16); }
+.mobile-nav { background: rgba(43,46,51,.97); }
+.hero { background: var(--ink); }
+.hero::before { background-image: radial-gradient(rgba(255,255,255,.09) 1px, transparent 1px); }
+.story-step { background: linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.03)); }
+.feature-card { background: linear-gradient(145deg,rgba(255,255,255,.085),rgba(255,255,255,.025)); }
+.feature-card:hover { background: linear-gradient(145deg,rgba(34,197,94,.13),rgba(255,255,255,.035) 58%); }
+.feature-icon,
+.feature-mini-map { background: var(--ink-deep); }
+.eco-card { background: rgba(43,46,51,.82); }
+.eco-index { color: #92959a; }
+.eco-card p { color: #a5a8ad; }
+.vision { background: var(--ink-deep); }
+.screenshot-stage { background: radial-gradient(circle at 50% 50%,rgba(34,197,94,.13),transparent 34%),var(--ink-deep); }
+.screenshot-stage::before { background-image: linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px); }
+.download { background: var(--ink); }
+.download-grid { background-image: linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px); }
+.download-float { background: rgba(43,46,51,.88); }
+footer { background: var(--ink-deep); }
+.footer-wordmark { color: rgba(255,255,255,.035); }
