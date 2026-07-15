@@ -915,6 +915,8 @@ main {
   letter-spacing: -0.067em;
 }
 
+.story h2 { margin-top: 0; }
+
 h2 em {
   color: var(--green);
   font-style: normal;
