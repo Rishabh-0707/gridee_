@@ -348,6 +348,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [navVisible, setNavVisible] = useState(false);
+  const [visionTextVisible, setVisionTextVisible] = useState(false);
   const [activeScreen, setActiveScreen] = useState("parking");
   const [carousel, setCarousel] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -361,8 +362,10 @@ export default function Home() {
 
   useEffect(() => {
     const updateNavigation = () => {
-      const visionBottom = openingVisionRef.current?.getBoundingClientRect().bottom ?? Number.POSITIVE_INFINITY;
+      const visionRect = openingVisionRef.current?.getBoundingClientRect();
+      const visionBottom = visionRect?.bottom ?? Number.POSITIVE_INFINITY;
       setNavVisible(visionBottom <= 80);
+      setVisionTextVisible((visionRect?.top ?? 0) <= -48);
     };
 
     updateNavigation();
@@ -421,7 +424,7 @@ export default function Home() {
 
       <section className="vision opening-vision" id="vision" ref={openingVisionRef}>
         <div className="vision-orbit" aria-hidden="true"><i /><i /><i /></div>
-        <div className="vision-copy section-shell">
+        <div className={`vision-copy section-shell ${visionTextVisible ? "vision-copy-visible" : "vision-copy-hidden"}`}>
           <motion.p initial={{ opacity: 0.18 }} whileInView={{ opacity: 1 }} viewport={{ margin: "-35% 0px -35% 0px" }}>We believe parking should<br />disappear into the background.</motion.p>
           {["No searching.", "No waiting.", "No paper tickets."].map((line) => <motion.h3 key={line} initial={{ opacity: 0.12, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ margin: "-42% 0px -42% 0px" }} transition={{ duration: 0.7 }}>{line}</motion.h3>)}
           <div className="vision-finale">{["Just arrive.", "Park.", "Go."].map((line, i) => <motion.strong key={line} initial={{ opacity: 0, y: 60 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.16, duration: 0.8 }}>{line}</motion.strong>)}</div>
