@@ -45,7 +45,6 @@ import {
   ComponentType,
   MouseEvent as ReactMouseEvent,
   ReactNode,
-  RefObject,
   useEffect,
   useRef,
   useState,
@@ -344,22 +343,6 @@ function StoryStage({ step, index }: { step: typeof storySteps[number]; index: n
   );
 }
 
-function HorizontalControls({ target, dark = false, label }: { target: RefObject<HTMLDivElement | null>; dark?: boolean; label: string }) {
-  function move(direction: -1 | 1) {
-    const track = target.current;
-    if (!track) return;
-    track.scrollBy({ left: direction * Math.min(track.clientWidth * 0.82, 720), behavior: "smooth" });
-  }
-
-  return (
-    <div className={`horizontal-controls ${dark ? "dark" : ""}`} aria-label={`${label} navigation`}>
-      <span>Swipe or use arrows</span>
-      <button type="button" onClick={() => move(-1)} aria-label={`Previous ${label}`}><ChevronLeft size={18} /></button>
-      <button type="button" onClick={() => move(1)} aria-label={`Next ${label}`}><ChevronRight size={18} /></button>
-    </div>
-  );
-}
-
 function QRPattern() {
   const cells = Array.from({ length: 169 }, (_, i) => {
     const row = Math.floor(i / 13);
@@ -378,9 +361,6 @@ export default function Home() {
   const [carousel, setCarousel] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const rootRef = useRef<HTMLElement>(null);
-  const storyTrackRef = useRef<HTMLDivElement>(null);
-  const featureTrackRef = useRef<HTMLDivElement>(null);
-  const industryTrackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const timer = window.setTimeout(() => setLoading(false), reduced ? 100 : 1450);
@@ -469,7 +449,7 @@ export default function Home() {
         <div className="horizontal-heading story-intro">
           <Reveal><h2>From “where do I park?”<br />to <em>right this way.</em></h2><p>Gridee connects availability, entry and payment so drivers do less guessing—and gate teams answer fewer calls.</p></Reveal>
         </div>
-        <div className="story-steps horizontal-track" ref={storyTrackRef} tabIndex={0} aria-label="Parking journey steps">{storySteps.map((step, i) => <StoryStage step={step} index={i} key={step.title} />)}</div>
+        <div className="story-steps horizontal-track" tabIndex={0} aria-label="Parking journey steps">{storySteps.map((step, i) => <StoryStage step={step} index={i} key={step.title} />)}</div>
       </section>
 
       <section className="product" id="product">
@@ -490,16 +470,16 @@ export default function Home() {
       </section>
 
       <section className="features section-shell" id="features">
-        <Reveal className="section-heading-row"><div><SectionEyebrow>Under the bonnet</SectionEyebrow><h2>The practical bits<br />that make it work.</h2></div><div className="heading-side"><p>Live availability for drivers. Clear controls for operators. No jargon required at the gate.</p><HorizontalControls target={featureTrackRef} label="features" /></div></Reveal>
-        <div className="feature-grid horizontal-track" ref={featureTrackRef} tabIndex={0} aria-label="Gridee features">
+        <Reveal className="section-heading-row"><div><h2>The practical bits<br />that make it work.</h2></div></Reveal>
+        <div className="feature-grid horizontal-track" tabIndex={0} aria-label="Gridee features">
           {features.map((feature, i) => { const Icon = feature.icon; return <Reveal key={feature.title} delay={(i % 4) * 0.05}><article className={`feature-card ${i === 0 || i === 3 ? "feature-wide" : ""}`}><div className="feature-top"><span className="feature-icon"><Icon size={22} /></span><span className="feature-tag"><i /> {feature.tag}</span></div><h3>{feature.title}</h3><p>{feature.copy}</p><div className="feature-arrow"><ArrowUpRight size={18} /></div>{i === 0 && <div className="feature-mini-map"><i /><i /><i /><i /></div>}{i === 3 && <div className="feature-scan"><span>KA 01 MH 2048</span><i /></div>}</article></Reveal>; })}
         </div>
       </section>
 
       <section className="industries" id="solutions">
         <div className="section-shell">
-          <Reveal className="industries-head"><div><SectionEyebrow>Built for everywhere</SectionEyebrow><h2>One platform.<br /><em>Every kind of place.</em></h2></div><HorizontalControls target={industryTrackRef} label="places" dark /></Reveal>
-          <div className="industry-list horizontal-track" ref={industryTrackRef} tabIndex={0} aria-label="Places Gridee serves">
+          <Reveal className="industries-head"><div><h2>One platform.<br /><em>Every kind of place.</em></h2></div></Reveal>
+          <div className="industry-list horizontal-track" tabIndex={0} aria-label="Places Gridee serves">
             {industries.map((industry) => { const Icon = industry.icon; return <motion.article className="industry-card" key={industry.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}><span className="industry-number">{industry.metric}</span><span className="industry-icon"><Icon size={24} /></span><div><h3>{industry.name}</h3><p>{industry.copy}</p></div><span className="industry-open"><ArrowUpRight /></span></motion.article>; })}
           </div>
         </div>

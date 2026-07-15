@@ -1091,6 +1091,7 @@ h2 em {
 
 .features { padding:170px 0; }
 .section-heading-row { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:70px; }
+.section-heading-row h2 { margin-top: 0; }
 .section-heading-row > p { max-width:420px; margin:0 0 4px; color:rgba(255,255,255,.42); font-size:15px; line-height:1.7; }
 .feature-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
 .feature-grid > div { height:100%; }
@@ -1460,7 +1461,7 @@ footer{position:relative;padding:100px 0 0;border-top:1px solid var(--line);back
   align-items: end;
 }
 
-.industries-head h2 { margin-top: 26px; }
+.industries-head h2 { margin-top: 0; }
 
 .industry-list {
   display: grid;
