@@ -1154,7 +1154,6 @@ footer{position:relative;padding:100px 0 0;border-top:1px solid var(--line);back
 .eco-arrow { margin-block: 5px; }
 .vision { min-height: 190vh; }
 .vision-copy { min-height: 190vh; padding-block: 14vh; }
-.vision-copy .eyebrow { margin-bottom: 16vh; }
 .vision-copy > p { margin-bottom: 20vh; }
 .vision-copy > h3 { margin-bottom: 17vh; }
 .vision-finale { min-height: 46vh; }
@@ -1510,7 +1509,6 @@ footer{position:relative;padding:100px 0 0;border-top:1px solid var(--line);back
   padding: 0;
 }
 
-.vision-copy .eyebrow { margin-bottom: 58px; }
 .vision-copy > p { margin: 0 auto 72px; font-size: clamp(38px, 5.5vw, 80px); }
 .vision-copy > h3 { display: inline-block; margin: 0 .06em; font-size: clamp(44px, 7.3vw, 110px); }
 .vision-finale { min-height: 0; margin-top: 78px; flex-direction: row; gap: .18em; }

@@ -486,7 +486,6 @@ export default function Home() {
       <section className="vision" id="vision">
         <div className="vision-orbit" aria-hidden="true"><i /><i /><i /></div>
         <div className="vision-copy section-shell">
-          <SectionEyebrow>Our north star</SectionEyebrow>
           <motion.p initial={{ opacity: 0.18 }} whileInView={{ opacity: 1 }} viewport={{ margin: "-35% 0px -35% 0px" }}>We believe parking should<br />disappear into the background.</motion.p>
           {["No searching.", "No waiting.", "No paper tickets."].map((line, i) => <motion.h3 key={line} initial={{ opacity: 0.12, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ margin: "-42% 0px -42% 0px" }} transition={{ duration: 0.7 }}>{line}</motion.h3>)}
           <div className="vision-finale">{["Just arrive.", "Park.", "Go."].map((line, i) => <motion.strong key={line} initial={{ opacity: 0, y: 60 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.16, duration: 0.8 }}>{line}</motion.strong>)}</div>
