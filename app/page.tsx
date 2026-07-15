@@ -474,7 +474,7 @@ export default function Home() {
       </section>
 
       <section className="product" id="product">
-        <div className="product-bg-copy" aria-hidden="true">GRIDEe</div>
+        <div className="product-bg-copy" aria-hidden="true">GRIDEE</div>
         <div className="section-shell product-shell product-horizontal">
           <div className="product-device-sticky">
             <div className="device-halo" />
