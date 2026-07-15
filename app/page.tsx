@@ -232,7 +232,6 @@ function Logo() {
 function SectionEyebrow({ children }: { children: ReactNode }) {
   return (
     <div className="eyebrow">
-      <span className="eyebrow-dot" />
       {children}
     </div>
   );

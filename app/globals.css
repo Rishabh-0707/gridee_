@@ -279,14 +279,6 @@ main {
   text-transform: uppercase;
 }
 
-.eyebrow-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 14px var(--green);
-}
-
 .hero {
   position: relative;
   min-height: 100svh;
