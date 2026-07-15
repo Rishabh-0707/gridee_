@@ -846,8 +846,8 @@ main {
 
 .trusted-heading {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
+  align-items: flex-start;
+  justify-content: flex-start;
   padding-bottom: 30px;
   border-bottom: 1px solid var(--line);
 }
@@ -857,7 +857,7 @@ main {
   color: rgba(255, 255, 255, 0.64);
   font-size: 17px;
   line-height: 1.4;
-  text-align: right;
+  text-align: left;
   letter-spacing: -0.03em;
 }
 

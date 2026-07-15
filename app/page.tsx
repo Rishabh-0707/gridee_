@@ -459,7 +459,7 @@ export default function Home() {
       </section>
 
       <section className="trusted section-shell" id="trusted">
-        <Reveal className="trusted-heading"><SectionEyebrow>What we have learned so far</SectionEyebrow><p>Parking is rarely the destination.<br />It should not take over the journey.</p></Reveal>
+        <Reveal className="trusted-heading"><p>Parking is rarely the destination.<br />It should not take over the journey.</p></Reveal>
         <div className="stats-grid">
           {stats.map((stat, i) => <Reveal className="stat-card" key={stat.label} delay={i * 0.08}><Counter value={stat.value} suffix={stat.suffix} /><span>{stat.label}</span><i /></Reveal>)}
         </div>
