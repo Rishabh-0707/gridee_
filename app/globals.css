@@ -822,7 +822,6 @@ main {
 .floating-status strong { display: block; }
 .floating-status small { color: #7e7e7e; font-size: 7px; letter-spacing: 0.12em; }
 .floating-status strong { margin-top: 3px; font-size: 10px; }
-.status-a { left: 0; top: 28%; }
 .status-b { right: 0; bottom: 9%; animation-delay: -2.5s; }
 .status-b > svg { color: var(--green); }
 

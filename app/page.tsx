@@ -456,7 +456,6 @@ export default function Home() {
             <div className="phone-orbit orbit-one" /><div className="phone-orbit orbit-two" />
             <PhoneMockup screen="parking" className="hero-phone-primary" />
             <PhoneMockup screen="bookings" className="hero-phone-secondary" />
-            <div className="floating-status status-a"><span className="pulse-dot" /><div><small>SPACE FOUND</small><strong>B2 · 118</strong></div></div>
             <div className="floating-status status-b"><ShieldCheck size={17} /><div><small>ENTRY VERIFIED</small><strong>0.8 seconds</strong></div></div>
           </motion.div>
         </div>
