@@ -1670,15 +1670,14 @@ footer { background: var(--ink-deep); }
 }
 
 .opening-vision {
-  min-height: 175svh;
+  min-height: 155svh;
   padding: 0;
   overflow: clip;
 }
 
 .opening-vision .vision-copy {
-  position: sticky;
-  top: 0;
-  min-height: 100svh;
+  position: relative;
+  min-height: 155svh;
   padding: clamp(64px, 8vh, 110px) 0;
   display: flex;
   flex-direction: column;
