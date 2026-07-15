@@ -1353,6 +1353,8 @@ footer{position:relative;padding:100px 0 0;border-top:1px solid var(--line);back
   gap: 50px;
 }
 
+.story-intro { grid-template-columns: 1fr; gap: 0; }
+
 .story-steps {
   margin-top: 64px;
   display: grid;

@@ -468,7 +468,6 @@ export default function Home() {
       <section className="story section-shell">
         <div className="horizontal-heading story-intro">
           <Reveal><h2>From “where do I park?”<br />to <em>right this way.</em></h2><p>Gridee connects availability, entry and payment so drivers do less guessing—and gate teams answer fewer calls.</p></Reveal>
-          <HorizontalControls target={storyTrackRef} label="parking journey" />
         </div>
         <div className="story-steps horizontal-track" ref={storyTrackRef} tabIndex={0} aria-label="Parking journey steps">{storySteps.map((step, i) => <StoryStage step={step} index={i} key={step.title} />)}</div>
       </section>
