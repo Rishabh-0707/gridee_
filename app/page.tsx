@@ -347,15 +347,32 @@ export default function Home() {
   const reduced = useReducedMotion();
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [navVisible, setNavVisible] = useState(false);
   const [activeScreen, setActiveScreen] = useState("parking");
   const [carousel, setCarousel] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const rootRef = useRef<HTMLElement>(null);
+  const openingVisionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const timer = window.setTimeout(() => setLoading(false), reduced ? 100 : 1450);
     return () => window.clearTimeout(timer);
   }, [reduced]);
+
+  useEffect(() => {
+    const updateNavigation = () => {
+      const visionBottom = openingVisionRef.current?.getBoundingClientRect().bottom ?? Number.POSITIVE_INFINITY;
+      setNavVisible(visionBottom <= 80);
+    };
+
+    updateNavigation();
+    window.addEventListener("scroll", updateNavigation, { passive: true });
+    window.addEventListener("resize", updateNavigation);
+    return () => {
+      window.removeEventListener("scroll", updateNavigation);
+      window.removeEventListener("resize", updateNavigation);
+    };
+  }, []);
 
   useEffect(() => {
     if (reduced) return;
@@ -389,7 +406,7 @@ export default function Home() {
       <AnimatePresence>{loading && <motion.div className="loader" exit={{ opacity: 0 }} transition={{ duration: 0.55 }}><motion.div className="loader-mark" initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}><Logo /></motion.div><div className="loader-line"><motion.i initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.1, ease: [0.6, 0, 0.2, 1] }} /></div></motion.div>}</AnimatePresence>
       <div className="mouse-glow" aria-hidden="true" />
 
-      <header className="navbar">
+      <header className={`navbar ${navVisible ? "navbar-visible" : "navbar-hidden"}`}>
         <a href="#top" className="nav-logo"><Logo /></a>
         <nav className="desktop-nav" aria-label="Primary navigation">
           {navItems.map(([label, href]) => <a key={label} href={href}>{label}</a>)}
@@ -401,6 +418,15 @@ export default function Home() {
         </div>
         <AnimatePresence>{menuOpen && <motion.nav className="mobile-nav" initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }}>{navItems.map(([label, href]) => <a key={label} href={href} onClick={() => setMenuOpen(false)}>{label}<ArrowRight size={16} /></a>)}<a href="#download" onClick={() => setMenuOpen(false)}>Get the app<ArrowUpRight size={16} /></a></motion.nav>}</AnimatePresence>
       </header>
+
+      <section className="vision opening-vision" id="vision" ref={openingVisionRef}>
+        <div className="vision-orbit" aria-hidden="true"><i /><i /><i /></div>
+        <div className="vision-copy section-shell">
+          <motion.p initial={{ opacity: 0.18 }} whileInView={{ opacity: 1 }} viewport={{ margin: "-35% 0px -35% 0px" }}>We believe parking should<br />disappear into the background.</motion.p>
+          {["No searching.", "No waiting.", "No paper tickets."].map((line) => <motion.h3 key={line} initial={{ opacity: 0.12, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ margin: "-42% 0px -42% 0px" }} transition={{ duration: 0.7 }}>{line}</motion.h3>)}
+          <div className="vision-finale">{["Just arrive.", "Park.", "Go."].map((line, i) => <motion.strong key={line} initial={{ opacity: 0, y: 60 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.16, duration: 0.8 }}>{line}</motion.strong>)}</div>
+        </div>
+      </section>
 
       <section className="hero" id="top">
         <div className="parking-grid" aria-hidden="true">
@@ -480,15 +506,6 @@ export default function Home() {
         <div className="ecosystem">
           <div className="ecosystem-spine" />
           {ecosystem.map((item, i) => { const Icon = item.icon; return <Reveal className="eco-wrap" key={item.label} delay={i * 0.04}><article className="eco-card"><span className="eco-index">0{i + 1}</span><div className="eco-icon"><Icon size={20} /></div><div><h3>{item.label}</h3><p>{item.detail}</p></div><span className="eco-state">CONNECTED</span></article>{i < ecosystem.length - 1 && <ChevronDown className="eco-arrow" size={18} />}</Reveal>; })}
-        </div>
-      </section>
-
-      <section className="vision" id="vision">
-        <div className="vision-orbit" aria-hidden="true"><i /><i /><i /></div>
-        <div className="vision-copy section-shell">
-          <motion.p initial={{ opacity: 0.18 }} whileInView={{ opacity: 1 }} viewport={{ margin: "-35% 0px -35% 0px" }}>We believe parking should<br />disappear into the background.</motion.p>
-          {["No searching.", "No waiting.", "No paper tickets."].map((line, i) => <motion.h3 key={line} initial={{ opacity: 0.12, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ margin: "-42% 0px -42% 0px" }} transition={{ duration: 0.7 }}>{line}</motion.h3>)}
-          <div className="vision-finale">{["Just arrive.", "Park.", "Go."].map((line, i) => <motion.strong key={line} initial={{ opacity: 0, y: 60 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.16, duration: 0.8 }}>{line}</motion.strong>)}</div>
         </div>
       </section>
 

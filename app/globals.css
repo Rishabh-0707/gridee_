@@ -1669,6 +1669,26 @@ footer { background: var(--ink-deep); }
   gap: 0;
 }
 
+.opening-vision {
+  min-height: 100svh;
+}
+
+.navbar {
+  transition: transform .45s cubic-bezier(.2,.8,.2,1), opacity .3s ease;
+}
+
+.navbar.navbar-hidden {
+  transform: translateY(-110%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.navbar.navbar-visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .hero {
   padding-top: 126px;
 }
