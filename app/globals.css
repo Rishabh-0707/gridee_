@@ -1485,7 +1485,19 @@ footer{position:relative;padding:100px 0 0;border-top:1px solid var(--line);back
   scroll-snap-align: start;
 }
 
-.industry-card:hover { padding-left: 32px; }
+.industry-card:hover {
+  padding-left: 32px;
+  border-color: #0b0b0b;
+  background: #0b0b0b;
+  color: #fff;
+}
+
+.industry-card:hover p { color: rgba(255,255,255,.5); }
+.industry-card:hover .industry-icon { border-color: rgba(255,255,255,.16); }
+.industry-card:hover .industry-open {
+  border-color: var(--green);
+  color: var(--green);
+}
 
 .vision {
   min-height: auto;
