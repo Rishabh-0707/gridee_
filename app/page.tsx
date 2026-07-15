@@ -10,8 +10,6 @@ import {
   Car,
   Check,
   ChevronDown,
-  ChevronLeft,
-  ChevronRight,
   CircleParking,
   Clock3,
   CreditCard,
@@ -486,7 +484,7 @@ export default function Home() {
       </section>
 
       <section className="technology section-shell" id="technology">
-        <Reveal className="technology-head"><SectionEyebrow>The Gridee ecosystem</SectionEyebrow><h2>From a single tap<br />to a smarter city.</h2><p>Every layer talks to every other—turning disconnected parking into one intelligent, responsive network.</p></Reveal>
+        <Reveal className="technology-head"><h2>From a single tap<br />to a smarter city.</h2><p>Every layer talks to every other—turning disconnected parking into one intelligent, responsive network.</p></Reveal>
         <div className="ecosystem">
           <div className="ecosystem-spine" />
           {ecosystem.map((item, i) => { const Icon = item.icon; return <Reveal className="eco-wrap" key={item.label} delay={i * 0.04}><article className="eco-card"><span className="eco-index">0{i + 1}</span><div className="eco-icon"><Icon size={20} /></div><div><h3>{item.label}</h3><p>{item.detail}</p></div><span className="eco-state">CONNECTED</span></article>{i < ecosystem.length - 1 && <ChevronDown className="eco-arrow" size={18} />}</Reveal>; })}
@@ -504,7 +502,7 @@ export default function Home() {
       </section>
 
       <section className="screenshots section-shell">
-        <Reveal className="screenshots-head"><div><h2>Everything you need.<br />Nothing you don&apos;t.</h2></div><div className="carousel-controls"><button aria-label="Previous screen" onClick={() => setCarousel((carousel - 1 + screens.length) % screens.length)}><ChevronLeft /></button><button aria-label="Next screen" onClick={() => setCarousel((carousel + 1) % screens.length)}><ChevronRight /></button></div></Reveal>
+        <Reveal className="screenshots-head"><div><h2>Everything you need.<br />Nothing you don&apos;t.</h2></div></Reveal>
         <div className="screenshot-stage">
           <div className="screenshot-label"><h3>{screens[carousel].title}</h3><p>{screens[carousel].kicker}</p></div>
           <motion.div className="carousel-phone" key={carousel} initial={{ opacity: 0, x: 40, rotate: 5 }} animate={{ opacity: 1, x: 0, rotate: 0 }} transition={{ duration: 0.55 }}><PhoneMockup screen={screens[carousel].key} /></motion.div>
@@ -514,7 +512,7 @@ export default function Home() {
 
       <section className="testimonials">
         <div className="section-shell">
-          <Reveal className="testimonials-head"><SectionEyebrow>Things we hear at the gate</SectionEyebrow><h2>Small changes.<br />Better mornings.</h2></Reveal>
+          <Reveal className="testimonials-head"><h2>Small changes.<br />Better mornings.</h2></Reveal>
           <div className="testimonial-grid">{testimonials.map((item, i) => <Reveal key={item.name} delay={i * 0.08}><article className="testimonial-card"><div className="quote-mark">“</div><blockquote>{item.quote}</blockquote><div className="person"><span>{item.initials}</span><div><strong>{item.name}</strong><small>{item.role}</small></div><i><Check size={11} /></i></div></article></Reveal>)}</div>
         </div>
       </section>
