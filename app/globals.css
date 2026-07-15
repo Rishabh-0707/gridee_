@@ -1664,6 +1664,11 @@ footer { background: var(--ink-deep); }
   border-bottom-color: rgba(0,0,0,.08);
 }
 
+.technology-head {
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
 .hero {
   padding-top: 126px;
 }

@@ -476,7 +476,7 @@ export default function Home() {
       </section>
 
       <section className="technology section-shell" id="technology">
-        <Reveal className="technology-head"><h2>From a single tap<br />to a smarter city.</h2><p>Every layer talks to every other—turning disconnected parking into one intelligent, responsive network.</p></Reveal>
+        <Reveal className="technology-head"><h2>From a single tap<br />to a smarter city.</h2></Reveal>
         <div className="ecosystem">
           <div className="ecosystem-spine" />
           {ecosystem.map((item, i) => { const Icon = item.icon; return <Reveal className="eco-wrap" key={item.label} delay={i * 0.04}><article className="eco-card"><span className="eco-index">0{i + 1}</span><div className="eco-icon"><Icon size={20} /></div><div><h3>{item.label}</h3><p>{item.detail}</p></div><span className="eco-state">CONNECTED</span></article>{i < ecosystem.length - 1 && <ChevronDown className="eco-arrow" size={18} />}</Reveal>; })}
