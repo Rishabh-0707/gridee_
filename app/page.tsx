@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  ArrowDown,
   ArrowRight,
   ArrowUpRight,
   BarChart3,
@@ -457,7 +456,6 @@ export default function Home() {
             <div className="floating-status status-b"><ShieldCheck size={17} /><div><small>ENTRY VERIFIED</small><strong>0.8 seconds</strong></div></div>
           </motion.div>
         </div>
-        <a href="#trusted" className="scroll-cue"><span>Scroll to explore</span><ArrowDown size={15} /></a>
       </section>
 
       <section className="trusted section-shell" id="trusted">
