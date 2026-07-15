@@ -349,7 +349,6 @@ export default function Home() {
   const [navVisible, setNavVisible] = useState(false);
   const [visionStage, setVisionStage] = useState(0);
   const [activeScreen, setActiveScreen] = useState("parking");
-  const [carousel, setCarousel] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const rootRef = useRef<HTMLElement>(null);
   const openingVisionRef = useRef<HTMLElement>(null);
@@ -512,15 +511,6 @@ export default function Home() {
         <div className="ecosystem">
           <div className="ecosystem-spine" />
           {ecosystem.map((item, i) => { const Icon = item.icon; return <Reveal className="eco-wrap" key={item.label} delay={i * 0.04}><article className="eco-card"><span className="eco-index">0{i + 1}</span><div className="eco-icon"><Icon size={20} /></div><div><h3>{item.label}</h3><p>{item.detail}</p></div><span className="eco-state">CONNECTED</span></article>{i < ecosystem.length - 1 && <ChevronDown className="eco-arrow" size={18} />}</Reveal>; })}
-        </div>
-      </section>
-
-      <section className="screenshots section-shell">
-        <Reveal className="screenshots-head"><div><h2>Everything you need.<br />Nothing you don&apos;t.</h2></div></Reveal>
-        <div className="screenshot-stage">
-          <div className="screenshot-label"><h3>{screens[carousel].title}</h3><p>{screens[carousel].kicker}</p></div>
-          <motion.div className="carousel-phone" key={carousel} initial={{ opacity: 0, x: 40, rotate: 5 }} animate={{ opacity: 1, x: 0, rotate: 0 }} transition={{ duration: 0.55 }}><PhoneMockup screen={screens[carousel].key} /></motion.div>
-          <div className="carousel-list">{screens.map((s, i) => <button key={s.key} className={i === carousel ? "active" : ""} onClick={() => setCarousel(i)} aria-label={`Show ${s.title} screen`}><span>0{i + 1}</span>{s.title}</button>)}</div>
         </div>
       </section>
 
