@@ -529,7 +529,7 @@ export default function Home() {
       <section className="screenshots section-shell">
         <Reveal className="screenshots-head"><div><h2>Everything you need.<br />Nothing you don&apos;t.</h2></div><div className="carousel-controls"><button aria-label="Previous screen" onClick={() => setCarousel((carousel - 1 + screens.length) % screens.length)}><ChevronLeft /></button><button aria-label="Next screen" onClick={() => setCarousel((carousel + 1) % screens.length)}><ChevronRight /></button></div></Reveal>
         <div className="screenshot-stage">
-          <div className="screenshot-label"><span>0{carousel + 1} / 0{screens.length}</span><h3>{screens[carousel].title}</h3><p>{screens[carousel].kicker}</p></div>
+          <div className="screenshot-label"><h3>{screens[carousel].title}</h3><p>{screens[carousel].kicker}</p></div>
           <motion.div className="carousel-phone" key={carousel} initial={{ opacity: 0, x: 40, rotate: 5 }} animate={{ opacity: 1, x: 0, rotate: 0 }} transition={{ duration: 0.55 }}><PhoneMockup screen={screens[carousel].key} /></motion.div>
           <div className="carousel-list">{screens.map((s, i) => <button key={s.key} className={i === carousel ? "active" : ""} onClick={() => setCarousel(i)} aria-label={`Show ${s.title} screen`}><span>0{i + 1}</span>{s.title}</button>)}</div>
         </div>
