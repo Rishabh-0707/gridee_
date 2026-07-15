@@ -41,13 +41,12 @@ import {
   AnimatePresence,
   motion,
   useReducedMotion,
-  useScroll,
-  useTransform,
 } from "framer-motion";
 import {
   ComponentType,
   MouseEvent as ReactMouseEvent,
   ReactNode,
+  RefObject,
   useEffect,
   useRef,
   useState,
@@ -405,20 +404,19 @@ function StoryStage({ step, index }: { step: typeof storySteps[number]; index: n
   );
 }
 
-function ProductStep({ screen, index, setActive }: { screen: typeof screens[number]; index: number; setActive: (key: string) => void }) {
+function HorizontalControls({ target, dark = false, label }: { target: RefObject<HTMLDivElement | null>; dark?: boolean; label: string }) {
+  function move(direction: -1 | 1) {
+    const track = target.current;
+    if (!track) return;
+    track.scrollBy({ left: direction * Math.min(track.clientWidth * 0.82, 720), behavior: "smooth" });
+  }
+
   return (
-    <motion.article
-      className="product-step"
-      onViewportEnter={() => setActive(screen.key)}
-      viewport={{ margin: "-42% 0px -42% 0px" }}
-      initial={{ opacity: 0.2 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
-      <span>0{index + 1}</span>
-      <h3>{screen.title}</h3>
-      <p>{screen.kicker}</p>
-    </motion.article>
+    <div className={`horizontal-controls ${dark ? "dark" : ""}`} aria-label={`${label} navigation`}>
+      <span>Swipe or use arrows</span>
+      <button type="button" onClick={() => move(-1)} aria-label={`Previous ${label}`}><ChevronLeft size={18} /></button>
+      <button type="button" onClick={() => move(1)} aria-label={`Next ${label}`}><ChevronRight size={18} /></button>
+    </div>
   );
 }
 
@@ -440,9 +438,9 @@ export default function Home() {
   const [carousel, setCarousel] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const rootRef = useRef<HTMLElement>(null);
-  const storyRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: storyRef, offset: ["start end", "end start"] });
-  const carY = useTransform(scrollYProgress, [0.08, 0.92], [20, 440]);
+  const storyTrackRef = useRef<HTMLDivElement>(null);
+  const featureTrackRef = useRef<HTMLDivElement>(null);
+  const industryTrackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const timer = window.setTimeout(() => setLoading(false), reduced ? 100 : 1450);
@@ -529,21 +527,17 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="story section-shell" ref={storyRef}>
-        <div className="story-intro">
+      <section className="story section-shell">
+        <div className="horizontal-heading story-intro">
           <Reveal><SectionEyebrow>One less daily headache</SectionEyebrow><h2>From “where do I park?”<br />to <em>right this way.</em></h2><p>Gridee connects availability, entry and payment so drivers do less guessing—and gate teams answer fewer calls.</p></Reveal>
-          <div className="journey-visual" aria-hidden="true">
-            <div className="journey-lane"><i /><i /><i /><i /><i /><i /></div>
-            <motion.div className="journey-car" style={{ y: carY }}><Car size={18} /></motion.div>
-            <div className="journey-label top">SEARCH</div><div className="journey-label bottom">PARKED</div>
-          </div>
+          <HorizontalControls target={storyTrackRef} label="parking journey" />
         </div>
-        <div className="story-steps">{storySteps.map((step, i) => <StoryStage step={step} index={i} key={step.title} />)}</div>
+        <div className="story-steps horizontal-track" ref={storyTrackRef} tabIndex={0} aria-label="Parking journey steps">{storySteps.map((step, i) => <StoryStage step={step} index={i} key={step.title} />)}</div>
       </section>
 
       <section className="product" id="product">
         <div className="product-bg-copy" aria-hidden="true">GRIDEe</div>
-        <div className="section-shell product-shell">
+        <div className="section-shell product-shell product-horizontal">
           <div className="product-device-sticky">
             <div className="device-halo" />
             <AnimatePresence mode="wait"><motion.div key={activeScreen} initial={{ opacity: 0, scale: 0.96, filter: "blur(8px)" }} animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }} exit={{ opacity: 0, scale: 1.02, filter: "blur(8px)" }} transition={{ duration: 0.42 }}><PhoneMockup screen={activeScreen} /></motion.div></AnimatePresence>
@@ -551,22 +545,24 @@ export default function Home() {
           </div>
           <div className="product-copy">
             <div className="product-heading"><SectionEyebrow>One app. Every arrival.</SectionEyebrow><h2>Your parking life,<br /><em>beautifully simple.</em></h2></div>
-            {screens.map((screen, i) => <ProductStep screen={screen} index={i} setActive={setActiveScreen} key={screen.key} />)}
+            <div className="product-screen-picker" role="tablist" aria-label="Explore Gridee app screens">
+              {screens.map((screen, i) => <button type="button" role="tab" aria-selected={activeScreen === screen.key} className={activeScreen === screen.key ? "active" : ""} onClick={() => setActiveScreen(screen.key)} key={screen.key}><span>0{i + 1}</span><strong>{screen.title}</strong><small>{screen.kicker}</small><ArrowRight size={16} /></button>)}
+            </div>
           </div>
         </div>
       </section>
 
       <section className="features section-shell" id="features">
-        <Reveal className="section-heading-row"><div><SectionEyebrow>Under the bonnet</SectionEyebrow><h2>The practical bits<br />that make it work.</h2></div><p>Live availability for drivers. Clear controls for operators. No jargon required at the gate.</p></Reveal>
-        <div className="feature-grid">
+        <Reveal className="section-heading-row"><div><SectionEyebrow>Under the bonnet</SectionEyebrow><h2>The practical bits<br />that make it work.</h2></div><div className="heading-side"><p>Live availability for drivers. Clear controls for operators. No jargon required at the gate.</p><HorizontalControls target={featureTrackRef} label="features" /></div></Reveal>
+        <div className="feature-grid horizontal-track" ref={featureTrackRef} tabIndex={0} aria-label="Gridee features">
           {features.map((feature, i) => { const Icon = feature.icon; return <Reveal key={feature.title} delay={(i % 4) * 0.05}><article className={`feature-card ${i === 0 || i === 3 ? "feature-wide" : ""}`}><div className="feature-top"><span className="feature-icon"><Icon size={22} /></span><span className="feature-tag"><i /> {feature.tag}</span></div><h3>{feature.title}</h3><p>{feature.copy}</p><div className="feature-arrow"><ArrowUpRight size={18} /></div>{i === 0 && <div className="feature-mini-map"><i /><i /><i /><i /></div>}{i === 3 && <div className="feature-scan"><span>KA 01 MH 2048</span><i /></div>}</article></Reveal>; })}
         </div>
       </section>
 
       <section className="industries" id="solutions">
         <div className="section-shell">
-          <Reveal className="industries-head"><SectionEyebrow>Built for everywhere</SectionEyebrow><h2>One platform.<br /><em>Every kind of place.</em></h2></Reveal>
-          <div className="industry-list">
+          <Reveal className="industries-head"><div><SectionEyebrow>Built for everywhere</SectionEyebrow><h2>One platform.<br /><em>Every kind of place.</em></h2></div><HorizontalControls target={industryTrackRef} label="places" dark /></Reveal>
+          <div className="industry-list horizontal-track" ref={industryTrackRef} tabIndex={0} aria-label="Places Gridee serves">
             {industries.map((industry) => { const Icon = industry.icon; return <motion.article className="industry-card" key={industry.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}><span className="industry-number">{industry.metric}</span><span className="industry-icon"><Icon size={24} /></span><div><h3>{industry.name}</h3><p>{industry.copy}</p></div><span className="industry-open"><ArrowUpRight /></span></motion.article>; })}
           </div>
         </div>
