@@ -1479,19 +1479,10 @@ footer{position:relative;padding:100px 0 0;border-top:1px solid var(--line);back
   min-height: 220px;
   padding: 28px;
   grid-template-columns: 34px 52px 1fr 40px;
-  border: 1px solid rgba(255,255,255,.12);
+  border: 1px solid rgba(0,0,0,.13);
   border-radius: 20px;
-  background: #0b0b0b;
-  color: #fff;
+  background: rgba(255,255,255,.48);
   scroll-snap-align: start;
-}
-
-.industry-card p { color: rgba(255,255,255,.48); }
-.industry-card .industry-icon { border-color: rgba(255,255,255,.15); }
-.industry-card .industry-open {
-  transform: rotate(0);
-  border-color: var(--green);
-  color: var(--green);
 }
 
 .industry-card:hover { padding-left: 32px; }
