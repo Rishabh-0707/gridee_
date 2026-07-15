@@ -435,9 +435,14 @@ main {
 
 .store-symbol {
   width: 25px;
-  font-size: 20px;
-  text-align: center;
+  height: 25px;
+  display: block;
+  object-fit: contain;
 }
+
+.apple-store-symbol { width: 24px; height: 24px; }
+.google-store-symbol { width: 25px; height: 27px; }
+.store-badge:not(.light) .apple-store-symbol { filter: invert(1); }
 
 .store-badge > span:last-child {
   display: flex;
@@ -1227,7 +1232,7 @@ footer{position:relative;padding:100px 0 0;border-top:1px solid var(--line);back
   .hero h1 { font-size:17.2vw; line-height:.86; }
   .hero-sub { margin-top:28px; font-size:15px; }
   .store-badge { min-width:0; flex:1; height:54px; padding:0 12px; gap:7px; }
-  .store-symbol { width:20px; font-size:16px; }
+  .store-symbol { width:20px; height:20px; }
   .store-badge strong { font-size:13px; }
   .hero-devices { height:540px; margin-top:40px; transform:none; }
   .hero-phone-primary { left:4%; width:230px; height:470px; }

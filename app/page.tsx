@@ -272,7 +272,12 @@ function AppBadge({ store, light = false }: { store: "apple" | "google"; light?:
   const isApple = store === "apple";
   return (
     <MagneticLink className={`store-badge ${light ? "light" : ""}`} ariaLabel={`Download Gridee on ${isApple ? "the App Store" : "Google Play"}`}>
-      <span className="store-symbol" aria-hidden="true">{isApple ? "●" : "▶"}</span>
+      <img
+        className={`store-symbol ${isApple ? "apple-store-symbol" : "google-store-symbol"}`}
+        src={isApple ? "/apple-logo.svg" : "/google-play-logo.svg"}
+        alt=""
+        aria-hidden="true"
+      />
       <span>
         <small>{isApple ? "Download on the" : "GET IT ON"}</small>
         <strong>{isApple ? "App Store" : "Google Play"}</strong>
