@@ -526,7 +526,7 @@ export default function Home() {
         <div className="download-grid" aria-hidden="true" />
         <div className="download-glow" aria-hidden="true" />
         <div className="section-shell download-shell">
-          <Reveal className="download-copy"><SectionEyebrow>Available on iOS & Android</SectionEyebrow><h2>Experience Smarter<br />Parking <em>Today.</em></h2><p>Join the movement toward effortless arrivals.<br />Your next space is already waiting.</p><div className="download-actions"><AppBadge store="apple" light /><AppBadge store="google" light /><div className="download-qr"><QRPattern /><span><small>SCAN TO</small><strong>DOWNLOAD</strong></span></div></div></Reveal>
+          <Reveal className="download-copy"><h2>Experience Smarter<br />Parking <em>Today.</em></h2><p>Join the movement toward effortless arrivals.<br />Your next space is already waiting.</p><div className="download-actions"><AppBadge store="apple" light /><AppBadge store="google" light /><div className="download-qr"><QRPattern /><span><small>SCAN TO</small><strong>DOWNLOAD</strong></span></div></div></Reveal>
           <Reveal className="download-device"><div className="download-rings"><i /><i /><i /></div><PhoneMockup screen="parking" /><div className="download-float"><span><Check size={14} /></span><div><small>READY WHEN YOU ARE</small><strong>193 spaces available</strong></div></div></Reveal>
         </div>
       </section>
