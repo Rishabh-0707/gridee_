@@ -1033,7 +1033,7 @@ h2 em {
 .device-caption i { width: 34px; height: 1px; background: #999; }
 .product-copy { position: relative; }
 .product-heading { min-height: 74vh; padding-top: 9vh; }
-.product-heading h2 { margin: 25px 0 0; font-size: clamp(48px, 5.2vw, 78px); font-weight: 550; line-height: .98; letter-spacing: -.07em; }
+.product-heading h2 { margin: 0; font-size: clamp(48px, 5.2vw, 78px); font-weight: 550; line-height: .98; letter-spacing: -.07em; }
 .product-heading em { color: #169947; }
 .product-step { min-height: 73vh; padding: 25vh 0 60px; border-top: 1px solid rgba(0,0,0,.12); }
 .product-step > span { color: #169947; font-family: var(--font-geist-mono),monospace; font-size: 9px; letter-spacing: .12em; }

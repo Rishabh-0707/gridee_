@@ -482,7 +482,7 @@ export default function Home() {
             <span className="device-caption">The Gridee App <i /></span>
           </div>
           <div className="product-copy">
-            <div className="product-heading"><SectionEyebrow>One app. Every arrival.</SectionEyebrow><h2>Your parking life,<br /><em>beautifully simple.</em></h2></div>
+            <div className="product-heading"><h2>Your parking life,<br /><em>beautifully simple.</em></h2></div>
             <div className="product-screen-picker" role="tablist" aria-label="Explore Gridee app screens">
               {screens.map((screen, i) => <button type="button" role="tab" aria-selected={activeScreen === screen.key} className={activeScreen === screen.key ? "active" : ""} onClick={() => setActiveScreen(screen.key)} key={screen.key}><span>0{i + 1}</span><strong>{screen.title}</strong><small>{screen.kicker}</small><ArrowRight size={16} /></button>)}
             </div>
