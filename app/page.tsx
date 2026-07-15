@@ -447,7 +447,7 @@ export default function Home() {
               <span className="hero-line green"><motion.span initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 1, delay: 1.32, ease: [0.16, 1, 0.3, 1] }}>Simplified</motion.span><motion.i initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 2, duration: 0.8 }} /></span>
             </h1>
             <motion.p className="hero-sub" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.65, duration: 0.8 }}>See a free space before you arrive. Reserve it, enter without the paper-ticket shuffle, and get on with your day.</motion.p>
-            <motion.div className="human-note" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }}><span>Field note · 8:42 AM</span><p>Made for the five minutes before class, a meeting, or visiting hours.</p></motion.div>
+            <motion.div className="human-note" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }}><p>Made for the five minutes before class, a meeting, or visiting hours.</p></motion.div>
           </div>
           <motion.div className="hero-devices" initial={{ opacity: 0, scale: 0.88, y: 30 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ delay: 1.4, duration: 1.15, ease: [0.16, 1, 0.3, 1] }}>
             <div className="phone-orbit orbit-one" /><div className="phone-orbit orbit-two" />

@@ -430,16 +430,8 @@ main {
   transform: rotate(-0.7deg);
 }
 
-.human-note span {
-  color: var(--green-bright);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 9px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
 .human-note p {
-  margin: 8px 0 0;
+  margin: 0;
   color: rgba(255, 255, 255, 0.72);
   font-family: Georgia, "Times New Roman", serif;
   font-size: 16px;
