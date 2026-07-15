@@ -110,7 +110,6 @@ const screens = [
   { key: "wallet", title: "Wallet", kicker: "Every payment, one secure place." },
   { key: "booking", title: "Booking", kicker: "Your space, ready before you arrive." },
   { key: "history", title: "History", kicker: "Every journey, perfectly organized." },
-  { key: "subscription", title: "Subscription", kicker: "Parking that simply renews." },
 ];
 
 const features: { title: string; copy: string; icon: IconType; tag: string }[] = [
@@ -146,7 +145,7 @@ const features: { title: string; copy: string; icon: IconType; tag: string }[] =
   },
   {
     title: "Secure Digital Payments",
-    copy: "UPI, cards, wallets and subscription-based payments, protected end to end.",
+    copy: "UPI, cards and wallets, protected end to end.",
     icon: CreditCard,
     tag: "Secure",
   },
@@ -158,7 +157,7 @@ const features: { title: string; copy: string; icon: IconType; tag: string }[] =
   },
   {
     title: "Smart Notifications",
-    copy: "Real-time alerts, booking reminders, renewals and relevant parking updates.",
+    copy: "Real-time alerts, booking reminders and relevant entry or exit updates.",
     icon: Bell,
     tag: "Aware",
   },
@@ -349,14 +348,6 @@ function PhoneScreen({ screen = "home" }: { screen?: string }) {
           <div className="screen-heading"><small>ACTIVITY</small><strong>Parking history</strong></div>
           <div className="history-tabs"><span className="active">All</span><span>Bookings</span><span>Payments</span></div>
           {[['14 JUL','Indigo Square','₹ 40','42 min'],['12 JUL','Campus North','₹ 80','2h 10m'],['09 JUL','Metro Green Line','₹ 120','4h 06m'],['05 JUL','Forum South','₹ 60','1h 31m']].map((x, i) => <div className="history-item" key={x[0]}><div className="history-date">{x[0]}</div><i className={i === 0 ? 'active' : ''}><Car size={15} /></i><div><strong>{x[1]}</strong><small>{x[3]}</small></div><b>{x[2]}</b></div>)}
-        </>
-      )}
-      {screen === "subscription" && (
-        <>
-          <div className="screen-heading"><small>GRIDEe PLUS</small><strong>Park without limits.</strong></div>
-          <div className="sub-visual"><div className="sub-p"><CircleParking size={42} /><i /></div><span>PLUS</span></div>
-          <div className="plan-card"><span>UNLIMITED MONTHLY</span><strong>₹999 <small>/ month</small></strong><ul><li><Check size={13} /> Unlimited sessions</li><li><Check size={13} /> Priority spaces</li><li><Check size={13} /> Zero convenience fee</li></ul><button>Start membership</button></div>
-          <small className="cancel-copy">Cancel anytime · Renews monthly</small>
         </>
       )}
     </div>
