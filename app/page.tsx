@@ -104,13 +104,20 @@ const storySteps: { title: string; copy: string; icon: IconType }[] = [
 ];
 
 const screens = [
-  { key: "home", title: "Home", kicker: "See what matters. Instantly." },
-  { key: "live", title: "Live Parking", kicker: "Availability that moves with the city." },
-  { key: "scanner", title: "QR Scanner", kicker: "Contactless access in a heartbeat." },
-  { key: "wallet", title: "Wallet", kicker: "Every payment, one secure place." },
-  { key: "booking", title: "Booking", kicker: "Your space, ready before you arrive." },
-  { key: "history", title: "History", kicker: "Every journey, perfectly organized." },
+  { key: "parking", title: "Parking", kicker: "Live spaces from the real Gridee app." },
+  { key: "bookings", title: "Bookings", kicker: "Your booking and check-in QR, ready to go." },
+  { key: "wallet", title: "Wallet", kicker: "Balance and parking activity in one place." },
+  { key: "profile", title: "Profile", kicker: "Vehicles, settings and support, kept together." },
+  { key: "history", title: "History", kicker: "Every past parking session, clearly organized." },
 ];
+
+const screenImages: Record<string, string> = {
+  parking: "/app-screens/parking.png",
+  bookings: "/app-screens/bookings.png",
+  wallet: "/app-screens/wallet.png",
+  profile: "/app-screens/profile.png",
+  history: "/app-screens/history.png",
+};
 
 const features: { title: string; copy: string; icon: IconType; tag: string }[] = [
   {
@@ -287,77 +294,21 @@ function AppBadge({ store, light = false }: { store: "apple" | "google"; light?:
   );
 }
 
-function PhoneScreen({ screen = "home" }: { screen?: string }) {
+function PhoneScreen({ screen = "parking" }: { screen?: string }) {
   return (
-    <div className={`phone-ui phone-ui-${screen}`}>
-      <div className="phone-status"><span>9:41</span><span>● ◒</span></div>
-      {screen === "home" && (
-        <>
-          <div className="app-hello"><div><small>Good morning</small><strong>Find your spot.</strong></div><span className="mini-avatar">A</span></div>
-          <div className="location-pill"><MapPin size={13} /><span>Near Koramangala</span><span>⌄</span></div>
-          <div className="map-panel">
-            <div className="map-road road-one" /><div className="map-road road-two" />
-            <span className="map-pin pin-one">12</span><span className="map-pin pin-two">8</span><span className="map-pin pin-three">24</span>
-            <div className="map-you"><i /></div>
-          </div>
-          <div className="nearby-row"><strong>Nearby parking</strong><small>See all</small></div>
-          <div className="parking-card"><div className="parking-photo"><CircleParking size={22} /></div><div><strong>Indigo Square</strong><small>240 m · 24 spaces</small></div><span>₹40</span></div>
-          <div className="phone-nav"><CircleParking size={16} /><QrCode size={16} /><Wallet size={16} /><History size={16} /></div>
-        </>
-      )}
-      {screen === "live" && (
-        <>
-          <div className="screen-heading"><small>LIVE PARKING</small><strong>Spaces near you</strong></div>
-          <div className="live-map">
-            <div className="live-street s1" /><div className="live-street s2" /><div className="live-street s3" />
-            {["6", "18", "4", "11"].map((n, i) => <span key={n} className={`live-space ls${i + 1}`}>{n}</span>)}
-            <div className="radar"><i /><b /></div>
-          </div>
-          <div className="sheet-card"><div className="grab" /><small>BEST MATCH</small><strong>Central Tech Park</strong><div className="space-meta"><span><i className="green-dot" /> 18 available</span><span>3 min</span></div><button>View parking <ArrowRight size={15} /></button></div>
-        </>
-      )}
-      {screen === "scanner" && (
-        <>
-          <div className="scanner-head"><ChevronLeft size={18} /><strong>Scan to enter</strong><span /></div>
-          <div className="scan-area"><div className="scan-corners" /><div className="scan-line" /><QrCode size={86} strokeWidth={1} /></div>
-          <p className="scan-copy">Align the parking QR code<br />inside the frame</p>
-          <div className="verified-pill"><ShieldCheck size={14} /> Secure Gridee verification</div>
-        </>
-      )}
-      {screen === "wallet" && (
-        <>
-          <div className="screen-heading"><small>GRIDEe WALLET</small><strong>Your balance</strong></div>
-          <div className="wallet-card"><span>Available balance</span><strong>₹ 1,840</strong><small>•••• 4821</small><div className="wallet-orb" /></div>
-          <button className="add-money">+ Add money</button>
-          <div className="activity-head"><strong>Recent activity</strong><small>View all</small></div>
-          {[['P','Phoenix Mall','− ₹60'],['C','Campus North','− ₹35'],['+','Wallet top-up','+ ₹500']].map((x) => <div className="transaction" key={x[1]}><i>{x[0]}</i><span><strong>{x[1]}</strong><small>Today</small></span><b>{x[2]}</b></div>)}
-        </>
-      )}
-      {screen === "booking" && (
-        <>
-          <div className="scanner-head"><ChevronLeft size={18} /><strong>Your booking</strong><span /></div>
-          <div className="booking-hero"><div className="booking-ring"><Check size={28} /></div><small>SPACE RESERVED</small><strong>B2 · 118</strong><span>Indigo Square</span></div>
-          <div className="booking-route"><div><MapPin size={14} /><span><small>ENTRY</small><strong>Gate 02</strong></span></div><div><Clock3 size={14} /><span><small>ARRIVE BY</small><strong>10:45 AM</strong></span></div></div>
-          <div className="vehicle-row"><span>KA 01 <strong>MH 2048</strong></span><small>White Nexon</small></div>
-          <button className="directions-button">Get directions <ArrowUpRight size={15} /></button>
-        </>
-      )}
-      {screen === "history" && (
-        <>
-          <div className="screen-heading"><small>ACTIVITY</small><strong>Parking history</strong></div>
-          <div className="history-tabs"><span className="active">All</span><span>Bookings</span><span>Payments</span></div>
-          {[['14 JUL','Indigo Square','₹ 40','42 min'],['12 JUL','Campus North','₹ 80','2h 10m'],['09 JUL','Metro Green Line','₹ 120','4h 06m'],['05 JUL','Forum South','₹ 60','1h 31m']].map((x, i) => <div className="history-item" key={x[0]}><div className="history-date">{x[0]}</div><i className={i === 0 ? 'active' : ''}><Car size={15} /></i><div><strong>{x[1]}</strong><small>{x[3]}</small></div><b>{x[2]}</b></div>)}
-        </>
-      )}
-    </div>
+    <img
+      className="phone-app-screenshot"
+      src={screenImages[screen] ?? screenImages.parking}
+      alt={`${screens.find((item) => item.key === screen)?.title ?? "Gridee"} screen from the Gridee app`}
+    />
   );
 }
 
-function PhoneMockup({ screen = "home", className = "" }: { screen?: string; className?: string }) {
+function PhoneMockup({ screen = "parking", className = "" }: { screen?: string; className?: string }) {
   return (
     <div className={`phone-frame ${className}`}>
       <div className="phone-button phone-button-a" /><div className="phone-button phone-button-b" />
-      <div className="phone-screen"><div className="dynamic-island" /><PhoneScreen screen={screen} /></div>
+      <div className="phone-screen"><PhoneScreen screen={screen} /></div>
     </div>
   );
 }
@@ -424,7 +375,7 @@ export default function Home() {
   const reduced = useReducedMotion();
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeScreen, setActiveScreen] = useState("home");
+  const [activeScreen, setActiveScreen] = useState("parking");
   const [carousel, setCarousel] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const rootRef = useRef<HTMLElement>(null);
@@ -500,8 +451,8 @@ export default function Home() {
           </div>
           <motion.div className="hero-devices" initial={{ opacity: 0, scale: 0.88, y: 30 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ delay: 1.4, duration: 1.15, ease: [0.16, 1, 0.3, 1] }}>
             <div className="phone-orbit orbit-one" /><div className="phone-orbit orbit-two" />
-            <PhoneMockup screen="home" className="hero-phone-primary" />
-            <PhoneMockup screen="scanner" className="hero-phone-secondary" />
+            <PhoneMockup screen="parking" className="hero-phone-primary" />
+            <PhoneMockup screen="bookings" className="hero-phone-secondary" />
             <div className="floating-status status-a"><span className="pulse-dot" /><div><small>SPACE FOUND</small><strong>B2 · 118</strong></div></div>
             <div className="floating-status status-b"><ShieldCheck size={17} /><div><small>ENTRY VERIFIED</small><strong>0.8 seconds</strong></div></div>
           </motion.div>
@@ -602,7 +553,7 @@ export default function Home() {
         <div className="download-glow" aria-hidden="true" />
         <div className="section-shell download-shell">
           <Reveal className="download-copy"><SectionEyebrow>Available on iOS & Android</SectionEyebrow><h2>Experience Smarter<br />Parking <em>Today.</em></h2><p>Join the movement toward effortless arrivals.<br />Your next space is already waiting.</p><div className="download-actions"><AppBadge store="apple" light /><AppBadge store="google" light /><div className="download-qr"><QRPattern /><span><small>SCAN TO</small><strong>DOWNLOAD</strong></span></div></div></Reveal>
-          <Reveal className="download-device"><div className="download-rings"><i /><i /><i /></div><PhoneMockup screen="home" /><div className="download-float"><span><Check size={14} /></span><div><small>READY WHEN YOU ARE</small><strong>24 spaces nearby</strong></div></div></Reveal>
+          <Reveal className="download-device"><div className="download-rings"><i /><i /><i /></div><PhoneMockup screen="parking" /><div className="download-float"><span><Check size={14} /></span><div><small>READY WHEN YOU ARE</small><strong>193 spaces available</strong></div></div></Reveal>
         </div>
       </section>
 
