@@ -115,54 +115,46 @@ const screenImages: Record<string, string> = {
   history: "/app-screens/history.png",
 };
 
-const features: { title: string; copy: string; icon: IconType; tag: string }[] = [
+const features: { title: string; copy: string; icon: IconType }[] = [
   {
     title: "Smart Parking Management",
     copy: "Real-time availability and a seamless digital parking experience.",
     icon: Car,
-    tag: "Live",
   },
   {
     title: "Mobile First Experience",
     copy: "Book, park and manage everything directly from the mobile application.",
     icon: Smartphone,
-    tag: "Native",
   },
   {
     title: "Live Parking Analytics",
     copy: "Occupancy, usage insights and operational intelligence for parking operators.",
     icon: BarChart3,
-    tag: "Real-time",
   },
   {
     title: "AI-Powered Vehicle Scanning",
     copy: "ANPR identifies vehicles instantly, automates entry and exit, and improves security.",
     icon: Camera,
-    tag: "AI",
   },
   {
     title: "QR Based Entry & Exit",
     copy: "Fast, contactless parking using secure QR verification.",
     icon: QrCode,
-    tag: "< 1 sec",
   },
   {
     title: "Secure Digital Payments",
     copy: "UPI, cards and wallets, protected end to end.",
     icon: CreditCard,
-    tag: "Secure",
   },
   {
     title: "Enterprise Parking Platform",
     copy: "One system for universities, apartments, hospitals, offices, malls and cities.",
     icon: Building2,
-    tag: "Scale",
   },
   {
     title: "Smart Notifications",
     copy: "Real-time alerts, booking reminders and relevant entry or exit updates.",
     icon: Bell,
-    tag: "Aware",
   },
 ];
 
@@ -470,7 +462,7 @@ export default function Home() {
       <section className="features section-shell" id="features">
         <Reveal className="section-heading-row"><div><h2>The practical bits<br />that make it work.</h2></div></Reveal>
         <div className="feature-grid horizontal-track" tabIndex={0} aria-label="Gridee features">
-          {features.map((feature, i) => { const Icon = feature.icon; return <Reveal key={feature.title} delay={(i % 4) * 0.05}><article className={`feature-card ${i === 0 || i === 3 ? "feature-wide" : ""}`}><div className="feature-top"><span className="feature-icon"><Icon size={22} /></span><span className="feature-tag"><i /> {feature.tag}</span></div><h3>{feature.title}</h3><p>{feature.copy}</p><div className="feature-arrow"><ArrowUpRight size={18} /></div>{i === 0 && <div className="feature-mini-map"><i /><i /><i /><i /></div>}{i === 3 && <div className="feature-scan"><span>KA 01 MH 2048</span><i /></div>}</article></Reveal>; })}
+          {features.map((feature, i) => { const Icon = feature.icon; return <Reveal key={feature.title} delay={(i % 4) * 0.05}><article className={`feature-card ${i === 0 || i === 3 ? "feature-wide" : ""}`}><div className="feature-top"><span className="feature-icon"><Icon size={22} /></span></div><h3>{feature.title}</h3><p>{feature.copy}</p><div className="feature-arrow"><ArrowUpRight size={18} /></div>{i === 0 && <div className="feature-mini-map"><i /><i /><i /><i /></div>}{i === 3 && <div className="feature-scan"><span>KA 01 MH 2048</span><i /></div>}</article></Reveal>; })}
         </div>
       </section>
 
