@@ -205,7 +205,7 @@ const faqs = [
 ];
 
 const footerGroups = [
-  { title: "Company", links: ["About", "Careers", "Contact"] },
+  { title: "Company", links: ["About", "Contact"] },
   { title: "Product", links: ["Features", "Security"] },
   { title: "Resources", links: ["Support", "Privacy Policy", "Terms of Service"] },
   { title: "Social", links: ["LinkedIn", "Instagram"] },
@@ -213,6 +213,7 @@ const footerGroups = [
 
 const footerLinkHrefs: Record<string, string> = {
   Features: "#features",
+  Contact: "mailto:gridee.business@gmail.com",
   Support: "mailto:gridee.business@gmail.com",
   LinkedIn: "https://www.linkedin.com/company/gridee?trk=public_post_reshare_feed-actor-image",
   Instagram: "https://www.instagram.com/gridee/?igsh=MW9rbjdiajJwcTVwZw==",
