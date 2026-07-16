@@ -74,6 +74,12 @@ main {
   transform: translateY(-10px);
 }
 
+.loader-mark .logo {
+  font-size: clamp(54px, 7vw, 112px);
+  font-weight: 620;
+  letter-spacing: -0.075em;
+}
+
 .loader-line {
   position: absolute;
   bottom: 0;
