@@ -208,8 +208,8 @@ const faqs = [
 const footerGroups = [
   { title: "Company", links: ["About", "Careers", "Contact"] },
   { title: "Product", links: ["Features", "Security"] },
-  { title: "Resources", links: ["Support", "Privacy Policy", "Terms of Service", "Cookies"] },
-  { title: "Social", links: ["LinkedIn", "Instagram", "X", "YouTube"] },
+  { title: "Resources", links: ["Support", "Privacy Policy", "Terms of Service"] },
+  { title: "Social", links: ["LinkedIn", "Instagram"] },
 ];
 
 function Logo() {
