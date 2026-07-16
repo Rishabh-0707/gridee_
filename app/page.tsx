@@ -214,7 +214,7 @@ const footerGroups = [
 
 const footerLinkHrefs: Record<string, string> = {
   Features: "#features",
-  Support: "mailto:hello@gridee.app",
+  Support: "mailto:gridee.business@gmail.com",
   LinkedIn: "https://www.linkedin.com/company/gridee?trk=public_post_reshare_feed-actor-image",
   Instagram: "https://www.instagram.com/gridee/?igsh=MW9rbjdiajJwcTVwZw==",
 };
@@ -524,7 +524,7 @@ export default function Home() {
       </section>
 
       <section className="faq section-shell" id="faq">
-        <Reveal className="faq-intro"><SectionEyebrow>Questions, answered</SectionEyebrow><h2>The simple<br />details.</h2><p>Still curious? Our team would love to talk.</p><a href="mailto:hello@gridee.app">hello@gridee.app <ArrowUpRight size={15} /></a></Reveal>
+        <Reveal className="faq-intro"><SectionEyebrow>Questions, answered</SectionEyebrow><h2>The simple<br />details.</h2><p>Still curious? Our team would love to talk.</p><a href="mailto:gridee.business@gmail.com">gridee.business@gmail.com <ArrowUpRight size={15} /></a></Reveal>
         <div className="faq-list">{faqs.map(([q, a], i) => <Reveal key={q}><article className={`faq-item ${openFaq === i ? "open" : ""}`}><button onClick={() => setOpenFaq(openFaq === i ? null : i)} aria-expanded={openFaq === i}><strong>{q}</strong><ChevronDown size={20} /></button><AnimatePresence initial={false}>{openFaq === i && <motion.div className="faq-answer" initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}><p>{a}</p></motion.div>}</AnimatePresence></article></Reveal>)}</div>
       </section>
 
