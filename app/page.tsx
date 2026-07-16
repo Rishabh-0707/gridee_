@@ -52,7 +52,6 @@ const navItems = [
   ["Product", "#product"],
   ["Solutions", "#solutions"],
   ["Technology", "#technology"],
-  ["Vision", "#vision"],
   ["Company", "#footer"],
 ];
 
