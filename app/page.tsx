@@ -488,7 +488,7 @@ export default function Home() {
           <div className="product-copy">
             <div className="product-heading"><h2>Your parking life,<br /><em>beautifully simple.</em></h2></div>
             <div className="product-screen-picker" role="tablist" aria-label="Explore Gridee app screens">
-              {screens.map((screen, i) => <button type="button" role="tab" aria-selected={activeScreen === screen.key} className={activeScreen === screen.key ? "active" : ""} onClick={() => setActiveScreen(screen.key)} key={screen.key}><span>0{i + 1}</span><strong>{screen.title}</strong><small>{screen.kicker}</small><ArrowRight size={16} /></button>)}
+              {screens.map((screen) => <button type="button" role="tab" aria-selected={activeScreen === screen.key} className={activeScreen === screen.key ? "active" : ""} onMouseEnter={() => setActiveScreen(screen.key)} onFocus={() => setActiveScreen(screen.key)} onClick={() => setActiveScreen(screen.key)} key={screen.key}><strong>{screen.title}</strong><small>{screen.kicker}</small><ArrowRight size={16} /></button>)}
             </div>
           </div>
         </div>

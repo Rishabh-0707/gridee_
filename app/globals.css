@@ -1362,7 +1362,7 @@ footer{position:relative;padding:120px 0 0;border-top:1px solid var(--line);back
   min-height: 116px;
   padding: 17px;
   display: grid;
-  grid-template-columns: 28px 1fr auto;
+  grid-template-columns: 1fr auto;
   grid-template-rows: auto 1fr;
   align-items: start;
   gap: 7px 10px;
@@ -1376,9 +1376,8 @@ footer{position:relative;padding:120px 0 0;border-top:1px solid var(--line);back
 
 .product-screen-picker button:hover { transform: translateY(-2px); border-color: rgba(22,153,71,.42); }
 .product-screen-picker button.active { border-color: #169947; background: #0d1710; color: #fff; }
-.product-screen-picker button > span { color: #169947; font-family: var(--font-geist-mono), monospace; font-size: 8px; }
 .product-screen-picker button strong { font-size: 15px; font-weight: 570; }
-.product-screen-picker button small { grid-column: 2 / -1; color: rgba(0,0,0,.48); font-size: 10px; line-height: 1.45; }
+.product-screen-picker button small { grid-column: 1 / -1; color: rgba(0,0,0,.48); font-size: 10px; line-height: 1.45; }
 .product-screen-picker button.active small { color: rgba(255,255,255,.5); }
 .product-screen-picker button svg { color: #169947; }
 
