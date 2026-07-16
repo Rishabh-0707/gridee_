@@ -345,11 +345,10 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
   return <strong ref={ref}>{display.toLocaleString("en-IN")}{suffix}</strong>;
 }
 
-function StoryStage({ step, index }: { step: typeof storySteps[number]; index: number }) {
+function StoryStage({ step }: { step: typeof storySteps[number] }) {
   const Icon = step.icon;
   return (
     <motion.article className="story-step" initial={{ opacity: 0.25 }} whileInView={{ opacity: 1 }} viewport={{ margin: "-35% 0px -35% 0px" }} transition={{ duration: 0.5 }}>
-      <div className="story-number">0{index + 1}</div>
       <div className="story-icon"><Icon size={22} /></div>
       <div><h3>{step.title}</h3><p>{step.copy}</p></div>
     </motion.article>
@@ -473,7 +472,7 @@ export default function Home() {
         <div className="horizontal-heading story-intro">
           <Reveal><h2>From “where do I park?”<br />to <em>right this way.</em></h2><p>Gridee connects availability, entry and payment so drivers do less guessing—and gate teams answer fewer calls.</p></Reveal>
         </div>
-        <div className="story-steps horizontal-track" tabIndex={0} aria-label="Parking journey steps">{storySteps.map((step, i) => <StoryStage step={step} index={i} key={step.title} />)}</div>
+        <div className="story-steps horizontal-track" tabIndex={0} aria-label="Parking journey steps">{storySteps.map((step) => <StoryStage step={step} key={step.title} />)}</div>
       </section>
 
       <section className="product" id="product">
@@ -541,7 +540,6 @@ export default function Home() {
       <footer id="footer">
         <div className="section-shell footer-shell">
           <div className="footer-top"><div className="footer-brand"><a href="#top"><Logo /></a><p>The operating system<br />for smart parking.</p></div><div className="footer-columns">{footerGroups.map((group) => <div key={group.title}><h3>{group.title}</h3>{group.links.map((link) => { const href = footerLinkHrefs[link] ?? "#top"; const external = href.startsWith("http"); return <a href={href} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined} key={link}>{link}</a>; })}</div>)}</div></div>
-          <div className="footer-bottom"><span>© 2026 Gridee Technologies Pvt. Ltd.</span><span>Made for better arrivals.</span><a href="#top">Back to top <ArrowUpRight size={13} /></a></div>
           <div className="footer-wordmark" aria-hidden="true">Gridee</div>
         </div>
       </footer>
