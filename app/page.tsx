@@ -32,8 +32,6 @@ import {
   Zap,
 } from "lucide-react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Lenis from "lenis";
 import {
   AnimatePresence,
   motion,
@@ -364,7 +362,9 @@ export default function Home() {
   }, [reduced]);
 
   useEffect(() => {
+    let frame = 0;
     const updateNavigation = () => {
+      frame = 0;
       const visionRect = openingVisionRef.current?.getBoundingClientRect();
       const visionBottom = visionRect?.bottom ?? Number.POSITIVE_INFINITY;
       setNavVisible(visionBottom <= 80);
@@ -376,46 +376,33 @@ export default function Home() {
       }
     };
 
+    const scheduleUpdate = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateNavigation);
+    };
+
     updateNavigation();
-    window.addEventListener("scroll", updateNavigation, { passive: true });
-    window.addEventListener("resize", updateNavigation);
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
     return () => {
-      window.removeEventListener("scroll", updateNavigation);
-      window.removeEventListener("resize", updateNavigation);
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
     };
   }, []);
 
   useEffect(() => {
     if (reduced) return;
-    const lenis = new Lenis({ duration: 1.15, smoothWheel: true });
-    let frame = 0;
-    const raf = (time: number) => { lenis.raf(time); frame = requestAnimationFrame(raf); };
-    frame = requestAnimationFrame(raf);
-    return () => { cancelAnimationFrame(frame); lenis.destroy(); };
-  }, [reduced]);
-
-  useEffect(() => {
-    if (reduced) return;
-    gsap.registerPlugin(ScrollTrigger);
     const ctx = gsap.context(() => {
-      gsap.to(".hero-phone-primary", { yPercent: 12, rotate: -2, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 1 } });
-      gsap.to(".hero-phone-secondary", { yPercent: -8, rotate: 7, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 1 } });
       gsap.to(".grid-car-a", { x: "48vw", repeat: -1, duration: 11, ease: "none" });
       gsap.to(".grid-car-b", { y: "-32vh", repeat: -1, duration: 14, ease: "none" });
     }, rootRef);
     return () => ctx.revert();
   }, [reduced]);
 
-  function pointerMove(event: ReactMouseEvent<HTMLElement>) {
-    if (!rootRef.current || reduced) return;
-    rootRef.current.style.setProperty("--mouse-x", `${event.clientX}px`);
-    rootRef.current.style.setProperty("--mouse-y", `${event.clientY}px`);
-  }
-
   return (
-    <main ref={rootRef} onMouseMove={pointerMove}>
+    <main ref={rootRef}>
       <AnimatePresence>{loading && <motion.div className="loader" exit={{ opacity: 0 }} transition={{ duration: 0.55 }}><motion.div className="loader-mark" initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}><Logo /></motion.div><div className="loader-line"><motion.i initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.1, ease: [0.6, 0, 0.2, 1] }} /></div></motion.div>}</AnimatePresence>
-      <div className="mouse-glow" aria-hidden="true" />
 
       <header className={`navbar ${navVisible ? "navbar-visible" : "navbar-hidden"}`}>
         <a href="#top" className="nav-logo"><Logo /></a>
@@ -483,7 +470,7 @@ export default function Home() {
         <div className="section-shell product-shell product-horizontal">
           <div className="product-device-sticky">
             <div className="device-halo" />
-            <AnimatePresence mode="wait"><motion.div key={activeScreen} initial={{ opacity: 0, scale: 0.96, filter: "blur(8px)" }} animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }} exit={{ opacity: 0, scale: 1.02, filter: "blur(8px)" }} transition={{ duration: 0.42 }}><PhoneMockup screen={activeScreen} /></motion.div></AnimatePresence>
+            <AnimatePresence mode="wait"><motion.div key={activeScreen} initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.01 }} transition={{ duration: 0.32 }}><PhoneMockup screen={activeScreen} /></motion.div></AnimatePresence>
             <span className="device-caption">The Gridee App <i /></span>
           </div>
           <div className="product-copy">
