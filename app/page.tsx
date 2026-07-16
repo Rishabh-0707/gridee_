@@ -206,9 +206,8 @@ const faqs = [
 ];
 
 const footerGroups = [
-  { title: "Company", links: ["About", "Careers", "Contact", "Blog", "Investor Relations"] },
-  { title: "Product", links: ["Features", "Security", "Pricing", "Updates"] },
-  { title: "Solutions", links: ["Universities", "Apartments", "Corporate", "Hospitals", "Smart Cities"] },
+  { title: "Company", links: ["About", "Careers", "Contact"] },
+  { title: "Product", links: ["Features", "Security"] },
   { title: "Resources", links: ["Support", "Privacy Policy", "Terms of Service", "Cookies"] },
   { title: "Social", links: ["LinkedIn", "Instagram", "X", "YouTube"] },
 ];
@@ -534,8 +533,7 @@ export default function Home() {
 
       <footer id="footer">
         <div className="section-shell footer-shell">
-          <div className="footer-top"><div className="footer-brand"><a href="#top"><Logo /></a><p>The operating system<br />for smart parking.</p><span><i /> Building for India · 2026</span></div><div className="footer-columns">{footerGroups.map((group) => <div key={group.title}><h3>{group.title}</h3>{group.links.map((link) => <a href={link === "Features" ? "#features" : link === "Support" ? "mailto:hello@gridee.app" : "#top"} key={link}>{link}</a>)}</div>)}</div></div>
-          <div className="footer-download"><div><strong>Gridee in your pocket.</strong><span>Available for iOS and Android.</span></div><div><AppBadge store="apple" /><AppBadge store="google" /></div></div>
+          <div className="footer-top"><div className="footer-brand"><a href="#top"><Logo /></a><p>The operating system<br />for smart parking.</p></div><div className="footer-columns">{footerGroups.map((group) => <div key={group.title}><h3>{group.title}</h3>{group.links.map((link) => <a href={link === "Features" ? "#features" : link === "Support" ? "mailto:hello@gridee.app" : "#top"} key={link}>{link}</a>)}</div>)}</div></div>
           <div className="footer-bottom"><span>© 2026 Gridee Technologies Pvt. Ltd.</span><span>Made for better arrivals.</span><a href="#top">Back to top <ArrowUpRight size={13} /></a></div>
           <div className="footer-wordmark" aria-hidden="true">Gridee</div>
         </div>
