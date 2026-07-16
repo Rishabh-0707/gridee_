@@ -178,7 +178,7 @@ const testimonials = [
   {
     quote: "I used to leave early just to account for parking. Now I check before I leave and head straight to the right gate.",
     name: "A student rider",
-    role: "Campus pilot · Bengaluru",
+    role: "Campus pilot · Chennai",
     initials: "SR",
   },
   {
@@ -190,7 +190,7 @@ const testimonials = [
   {
     quote: "The number plate check saves us from maintaining another paper register. That sounds small until you do it every day.",
     name: "A facility manager",
-    role: "Residential community",
+    role: "College",
     initials: "FM",
   },
 ];
