@@ -156,14 +156,14 @@ const features: { title: string; copy: string; icon: IconType }[] = [
   },
 ];
 
-const industries: { name: string; icon: IconType; copy: string; metric: string }[] = [
-  { name: "Universities", icon: GraduationCap, copy: "Frictionless campus movement for students and staff.", metric: "01" },
-  { name: "Apartments", icon: Building2, copy: "Resident, guest and visitor parking in one place.", metric: "02" },
-  { name: "Corporate Offices", icon: BarChart3, copy: "Smarter commutes and efficient space allocation.", metric: "03" },
-  { name: "Hospitals", icon: HeartPulse, copy: "Fast arrival when every minute matters.", metric: "04" },
-  { name: "Shopping Malls", icon: ShoppingBag, copy: "A better arrival and a calmer departure.", metric: "05" },
-  { name: "Metro Stations", icon: TrainFront, copy: "Connected first- and last-mile parking.", metric: "06" },
-  { name: "Smart Cities", icon: Sparkles, copy: "A living parking network built for urban scale.", metric: "07" },
+const industries: { name: string; icon: IconType; copy: string }[] = [
+  { name: "Universities", icon: GraduationCap, copy: "Frictionless campus movement for students and staff." },
+  { name: "Apartments", icon: Building2, copy: "Resident, guest and visitor parking in one place." },
+  { name: "Corporate Offices", icon: BarChart3, copy: "Smarter commutes and efficient space allocation." },
+  { name: "Hospitals", icon: HeartPulse, copy: "Fast arrival when every minute matters." },
+  { name: "Shopping Malls", icon: ShoppingBag, copy: "A better arrival and a calmer departure." },
+  { name: "Metro Stations", icon: TrainFront, copy: "Connected first- and last-mile parking." },
+  { name: "Smart Cities", icon: Sparkles, copy: "A living parking network built for urban scale." },
 ];
 
 const ecosystem: { label: string; detail: string; icon: IconType }[] = [
@@ -503,7 +503,7 @@ export default function Home() {
         <div className="section-shell">
           <Reveal className="industries-head"><div><h2>One platform.<br /><em>Every kind of place.</em></h2></div></Reveal>
           <div className="industry-list horizontal-track" tabIndex={0} aria-label="Places Gridee serves">
-            {industries.map((industry) => { const Icon = industry.icon; return <motion.article className="industry-card" key={industry.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}><span className="industry-number">{industry.metric}</span><span className="industry-icon"><Icon size={24} /></span><div><h3>{industry.name}</h3><p>{industry.copy}</p></div><span className="industry-open"><ArrowUpRight /></span></motion.article>; })}
+            {industries.map((industry) => { const Icon = industry.icon; return <motion.article className="industry-card" key={industry.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}><span className="industry-icon"><Icon size={24} /></span><div><h3>{industry.name}</h3><p>{industry.copy}</p></div><span className="industry-open"><ArrowUpRight /></span></motion.article>; })}
           </div>
         </div>
       </section>
@@ -512,7 +512,7 @@ export default function Home() {
         <Reveal className="technology-head"><h2>From a single tap<br />to a smarter city.</h2></Reveal>
         <div className="ecosystem">
           <div className="ecosystem-spine" />
-          {ecosystem.map((item, i) => { const Icon = item.icon; return <Reveal className="eco-wrap" key={item.label} delay={i * 0.04}><article className="eco-card"><span className="eco-index">0{i + 1}</span><div className="eco-icon"><Icon size={20} /></div><div><h3>{item.label}</h3><p>{item.detail}</p></div><span className="eco-state">CONNECTED</span></article>{i < ecosystem.length - 1 && <ChevronDown className="eco-arrow" size={18} />}</Reveal>; })}
+          {ecosystem.map((item, i) => { const Icon = item.icon; return <Reveal className="eco-wrap" key={item.label} delay={i * 0.04}><article className="eco-card"><div className="eco-icon"><Icon size={20} /></div><div><h3>{item.label}</h3><p>{item.detail}</p></div></article>{i < ecosystem.length - 1 && <ChevronDown className="eco-arrow" size={18} />}</Reveal>; })}
         </div>
       </section>
 
@@ -525,7 +525,7 @@ export default function Home() {
 
       <section className="faq section-shell" id="faq">
         <Reveal className="faq-intro"><SectionEyebrow>Questions, answered</SectionEyebrow><h2>The simple<br />details.</h2><p>Still curious? Our team would love to talk.</p><a href="mailto:hello@gridee.app">hello@gridee.app <ArrowUpRight size={15} /></a></Reveal>
-        <div className="faq-list">{faqs.map(([q, a], i) => <Reveal key={q}><article className={`faq-item ${openFaq === i ? "open" : ""}`}><button onClick={() => setOpenFaq(openFaq === i ? null : i)} aria-expanded={openFaq === i}><span>0{i + 1}</span><strong>{q}</strong><ChevronDown size={20} /></button><AnimatePresence initial={false}>{openFaq === i && <motion.div className="faq-answer" initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}><p>{a}</p></motion.div>}</AnimatePresence></article></Reveal>)}</div>
+        <div className="faq-list">{faqs.map(([q, a], i) => <Reveal key={q}><article className={`faq-item ${openFaq === i ? "open" : ""}`}><button onClick={() => setOpenFaq(openFaq === i ? null : i)} aria-expanded={openFaq === i}><strong>{q}</strong><ChevronDown size={20} /></button><AnimatePresence initial={false}>{openFaq === i && <motion.div className="faq-answer" initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}><p>{a}</p></motion.div>}</AnimatePresence></article></Reveal>)}</div>
       </section>
 
       <section className="download" id="download">
