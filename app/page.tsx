@@ -473,7 +473,7 @@ export default function Home() {
 
       <section className="story section-shell">
         <div className="horizontal-heading story-intro">
-          <Reveal><h2>From “where do I park?”<br />to <em>right this way.</em></h2><p>Gridee connects availability, entry and payment so drivers do less guessing—and gate teams answer fewer calls.</p></Reveal>
+          <Reveal><h2>From “where do I park?”<br />to <em>right this way.</em></h2></Reveal>
         </div>
         <div className="story-steps horizontal-track" tabIndex={0} aria-label="Parking journey steps">{storySteps.map((step) => <StoryStage step={step} key={step.title} />)}</div>
       </section>
@@ -484,7 +484,6 @@ export default function Home() {
           <div className="product-device-sticky">
             <div className="device-halo" />
             <AnimatePresence mode="wait"><motion.div key={activeScreen} initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.01 }} transition={{ duration: 0.32 }}><PhoneMockup screen={activeScreen} /></motion.div></AnimatePresence>
-            <span className="device-caption">The Gridee App <i /></span>
           </div>
           <div className="product-copy">
             <div className="product-heading"><h2>Your parking life,<br /><em>beautifully simple.</em></h2></div>
@@ -527,7 +526,7 @@ export default function Home() {
       </section>
 
       <section className="faq section-shell" id="faq">
-        <Reveal className="faq-intro"><SectionEyebrow>Questions, answered</SectionEyebrow><h2>The simple<br />details.</h2><p>Still curious? Our team would love to talk.</p><a href="mailto:gridee.business@gmail.com">gridee.business@gmail.com <ArrowUpRight size={15} /></a></Reveal>
+        <Reveal className="faq-intro"><h2>The simple<br />details.</h2><p>Still curious? Our team would love to talk.</p><a href="mailto:gridee.business@gmail.com">gridee.business@gmail.com <ArrowUpRight size={15} /></a></Reveal>
         <div className="faq-list">{faqs.map(([q, a], i) => <Reveal key={q}><article className={`faq-item ${openFaq === i ? "open" : ""}`}><button onClick={() => setOpenFaq(openFaq === i ? null : i)} aria-expanded={openFaq === i}><strong>{q}</strong><ChevronDown size={20} /></button><AnimatePresence initial={false}>{openFaq === i && <motion.div className="faq-answer" initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}><p>{a}</p></motion.div>}</AnimatePresence></article></Reveal>)}</div>
       </section>
 
