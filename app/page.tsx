@@ -260,8 +260,19 @@ function MagneticLink({ children, className = "", href = "#download", ariaLabel 
     if (ref.current) ref.current.style.transform = "translate(0, 0)";
   }
 
+  function openExternal(event: ReactMouseEvent<HTMLAnchorElement>) {
+    if (!external) return;
+    event.preventDefault();
+    const newTab = window.open(href, "_blank");
+    if (newTab) {
+      newTab.opener = null;
+    } else {
+      window.location.assign(href);
+    }
+  }
+
   return (
-    <a ref={ref} href={href} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined} className={`magnetic ${className}`} onMouseMove={move} onMouseLeave={leave} aria-label={ariaLabel}>
+    <a ref={ref} href={href} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined} className={`magnetic ${className}`} onClick={openExternal} onMouseMove={move} onMouseLeave={leave} aria-label={ariaLabel}>
       {children}
     </a>
   );
