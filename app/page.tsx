@@ -207,14 +207,18 @@ const faqs = [
 const footerGroups = [
   { title: "Company", links: ["About", "Contact"] },
   { title: "Product", links: ["Features", "Security"] },
-  { title: "Resources", links: ["Support", "Privacy Policy", "Terms of Service"] },
+  { title: "Resources", links: ["Support", "Privacy Policy", "Data Policy"] },
   { title: "Social", links: ["LinkedIn", "Instagram"] },
 ];
 
 const footerLinkHrefs: Record<string, string> = {
   Features: "#features",
+  About: "/about",
   Contact: "mailto:gridee.business@gmail.com",
   Support: "mailto:gridee.business@gmail.com",
+  Security: "/data-safety",
+  "Privacy Policy": "/privacy",
+  "Data Policy": "/data-safety",
   LinkedIn: "https://www.linkedin.com/company/gridee?trk=public_post_reshare_feed-actor-image",
   Instagram: "https://www.instagram.com/gridee/?igsh=MW9rbjdiajJwcTVwZw==",
 };
