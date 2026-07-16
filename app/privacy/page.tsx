@@ -1,7 +1,7 @@
 import { InfoPage } from "../info-page";
 
 export default function PrivacyPage() {
-  return <InfoPage eyebrow="Gridee Privacy" title="Privacy Policy" intro="This policy explains how Gridee collects, uses, protects, and handles information when you use our smart-parking services." updated="Last updated: December 11, 2025" sections={[
+  return <InfoPage title="Privacy Policy" intro="This policy explains how Gridee collects, uses, protects, and handles information when you use our smart-parking services." updated="Last updated: December 11, 2025" sections={[
     { title: "Our Promise", paragraphs: ["We will not sell your personal data. We collect only the information needed to provide, protect, and improve the Gridee parking experience."] },
     { title: "Information We Collect", items: [
       <><strong>Identity & Account:</strong> Name, email address, phone number, and registered vehicle number.</>,

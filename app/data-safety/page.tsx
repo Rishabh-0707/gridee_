@@ -1,7 +1,7 @@
 import { InfoPage } from "../info-page";
 
 export default function DataSafetyPage() {
-  return <InfoPage eyebrow="Gridee Data Safety" title="Your data, your control." intro="A clear summary of how Gridee uses, protects, and deletes your information." sections={[
+  return <InfoPage title="Your data, your control." intro="A clear summary of how Gridee uses, protects, and deletes your information." sections={[
     { title: "Data Usage Policy", items: [
       <><strong>No Selling:</strong> We do not sell, rent, or trade personal information.</>,
       <><strong>Service Focus:</strong> Information is used to manage bookings, verify access, process payments, and support customers.</>,

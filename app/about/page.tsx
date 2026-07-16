@@ -1,7 +1,7 @@
 import { InfoPage } from "../info-page";
 
 export default function AboutPage() {
-  return <InfoPage eyebrow="About Gridee" title="Smart parking and cashless check-ins." intro="Book parking, scan to enter or exit, and manage your wallet from one app." sections={[
+  return <InfoPage title="Smart parking and cashless check-ins." intro="Book parking, scan to enter or exit, and manage your wallet from one app." sections={[
     { title: "What We Do", paragraphs: ["Gridee provides smart parking management for drivers and operators, streamlined entry and exit using QR and number-plate scans, and cashless payments with wallet top-ups."] },
     { title: "Core Features", items: [
       <><strong>Book & Manage:</strong> Find and reserve parking with live availability.</>,
