@@ -1,98 +1,121 @@
-# vinext-starter
+# Gridee — Parking. Simplified.
 
-A clean full-stack starter running on
-[vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
-Drizzle support.
+The official marketing website for **Gridee**, a smart-parking platform designed to make finding, reserving, entering, and paying for parking feel effortless.
 
-## Prerequisites
+**Live website:** [gridee-parking.gridee-business.chatgpt.site](https://gridee-parking.gridee-business.chatgpt.site)
 
-- Node.js `>=22.13.0`
+## Overview
 
-## Quick Start
+The site introduces Gridee’s consumer app, parking workflow, core technology, supported use cases, and official policy information. It is built as an animated, responsive product experience using real Gridee app screens.
+
+Highlights include:
+
+- Responsive product landing page
+- Scroll-based hero and vision animations
+- Interactive app-screen preview that switches on hover, focus, or click
+- Horizontal feature and industry sections
+- Official App Store and Google Play links
+- About, Privacy Policy, and Data Safety pages
+- Account-deletion instructions
+- Responsive desktop and mobile layouts
+- Reduced-motion support
+
+## App Downloads
+
+- [Download on the App Store](https://apps.apple.com/in/app/grideeapp/id6757460398)
+- [Get it on Google Play](https://play.google.com/store/apps/details?id=com.gridee.parking&pcampaignid=web_share)
+
+## Technology
+
+- [React 19](https://react.dev/)
+- [Next.js 15](https://nextjs.org/)
+- [vinext](https://github.com/cloudflare/vinext)
+- [Vite](https://vite.dev/)
+- [Framer Motion](https://www.framer.com/motion/)
+- [GSAP](https://gsap.com/)
+- [Lucide React](https://lucide.dev/)
+- Cloudflare Workers-compatible build output
+- OpenAI Sites hosting
+
+## Project Structure
+
+```text
+app/
+├── about/
+│   └── page.tsx          # About Gridee
+├── data-safety/
+│   └── page.tsx          # Data policy and account deletion
+├── privacy/
+│   └── page.tsx          # Privacy policy
+├── globals.css           # Global styles, responsive layout, animations
+├── info-page.tsx         # Shared layout for informational pages
+├── layout.tsx            # Root document layout and metadata
+└── page.tsx              # Main Gridee landing page
+
+public/                    # App screenshots and static assets
+.openai/hosting.json       # Sites project configuration
+```
+
+## Local Development
+
+### Prerequisites
+
+- Node.js `22.13.0` or newer
+- npm
+
+### Setup
 
 ```bash
+git clone https://github.com/Rishabh-0707/gridee_.git
+cd gridee_
 npm install
 npm run dev
-npm run build
 ```
 
-This starter does not use `wrangler.jsonc`.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Included Shape
+## Available Commands
 
-- edit site code under `app/`
-- `.openai/hosting.json` declares optional Sites D1 and R2 bindings
-- `vite.config.ts` simulates declared bindings for local development
-- `db/schema.ts` starts intentionally empty
-- `examples/d1/` contains an optional D1 example surface
-- `drizzle.config.ts` supports local migration generation when needed
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start the local development server |
+| `npm run build` | Create and validate the production build |
+| `npm run start` | Run the production build locally |
+| `npm run lint` | Check the codebase with ESLint |
+| `npm test` | Run the project’s automated build/render test |
 
-## Workspace Auth Headers
+## Routes
 
-OpenAI workspace sites can read the current user's email from
-`oai-authenticated-user-email`.
+| Route | Description |
+| --- | --- |
+| `/` | Main Gridee product website |
+| `/about` | Company and product overview |
+| `/privacy` | Official privacy policy |
+| `/data-safety` | Data usage, security, and account deletion |
 
-SIWC-authenticated workspace sites may also receive
-`oai-authenticated-user-full-name` when the user's SIWC profile has a non-empty
-`name` claim. The full-name value is percent-encoded UTF-8 and is accompanied by
-`oai-authenticated-user-full-name-encoding: percent-encoded-utf-8`.
+## Deployment
 
-Treat the full name as optional and fall back to email when it is absent:
+The website is hosted with OpenAI Sites. Its existing Sites project is declared in:
 
-```tsx
-import { headers } from "next/headers";
-
-export default async function Home() {
-  const requestHeaders = await headers();
-  const email = requestHeaders.get("oai-authenticated-user-email");
-  const encodedFullName = requestHeaders.get("oai-authenticated-user-full-name");
-  const fullName =
-    encodedFullName &&
-    requestHeaders.get("oai-authenticated-user-full-name-encoding") ===
-      "percent-encoded-utf-8"
-      ? decodeURIComponent(encodedFullName)
-      : null;
-
-  const displayName = fullName ?? email;
-  // ...
-}
+```text
+.openai/hosting.json
 ```
 
-## Optional Dispatch-Owned ChatGPT Sign-In
+Production changes should follow this sequence:
 
-Import the ready-to-use helpers from `app/chatgpt-auth.ts` when the site needs
-optional or required ChatGPT sign-in:
+1. Run `npm run build`.
+2. Commit the exact validated source state.
+3. Push the commit to GitHub.
+4. Save a Sites version using that commit SHA.
+5. Deploy the saved version and confirm its status succeeds.
 
-- Use `getChatGPTUser()` for optional signed-in UI.
-- Use `requireChatGPTUser(returnTo)` for server-rendered pages that should send
-  anonymous visitors through Sign in with ChatGPT.
-- Use `chatGPTSignInPath(returnTo)` and `chatGPTSignOutPath(returnTo)` for
-  browser links or actions.
-- Pass a same-origin relative `returnTo` path for the destination after sign-in
-  or sign-out. The helper validates and safely encodes it.
-- Mark protected pages with `export const dynamic = "force-dynamic"` because
-  they depend on per-request identity headers.
+## Official Links
 
-Dispatch owns `/signin-with-chatgpt`, `/signout-with-chatgpt`, `/callback`, the
-OAuth cookies, and identity header injection. Do not implement app routes for
-those reserved paths. Routes that do not import and call the helper remain
-anonymous-compatible.
+- [Gridee documentation](https://docs.gridee.in/)
+- [Instagram](https://www.instagram.com/gridee/?igsh=MW9rbjdiajJwcTVwZw==)
+- [LinkedIn](https://www.linkedin.com/company/gridee?trk=public_post_reshare_feed-actor-image)
+- Email: [gridee.business@gmail.com](mailto:gridee.business@gmail.com)
 
-SIWC establishes identity only; it does not prove workspace membership. Use the
-Sites hosting platform's access policy controls for workspace-wide restrictions,
-or enforce explicit server-side membership or allowlist checks.
+## License
 
-Use SIWC for account pages, user-specific dashboards, saved records, and write
-actions tied to the current ChatGPT user. Leave public content anonymous.
-
-## Useful Commands
-
-- `npm run dev`: start local development
-- `npm run build`: verify the vinext build output
-- `npm test`: build the starter and verify its rendered loading skeleton
-- `npm run db:generate`: generate Drizzle migrations after schema changes
-
-## Learn More
-
-- [vinext Documentation](https://github.com/cloudflare/vinext)
-- [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
+This repository and its assets are maintained for Gridee. All rights reserved.
