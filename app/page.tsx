@@ -246,6 +246,7 @@ function Reveal({ children, className = "", delay = 0 }: { children: ReactNode; 
 function MagneticLink({ children, className = "", href = "#download", ariaLabel }: { children: ReactNode; className?: string; href?: string; ariaLabel?: string }) {
   const reduced = useReducedMotion();
   const ref = useRef<HTMLAnchorElement>(null);
+  const external = href.startsWith("http");
 
   function move(event: ReactMouseEvent<HTMLAnchorElement>) {
     if (reduced || !ref.current) return;
@@ -260,7 +261,7 @@ function MagneticLink({ children, className = "", href = "#download", ariaLabel 
   }
 
   return (
-    <a ref={ref} href={href} className={`magnetic ${className}`} onMouseMove={move} onMouseLeave={leave} aria-label={ariaLabel}>
+    <a ref={ref} href={href} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined} className={`magnetic ${className}`} onMouseMove={move} onMouseLeave={leave} aria-label={ariaLabel}>
       {children}
     </a>
   );
@@ -268,8 +269,11 @@ function MagneticLink({ children, className = "", href = "#download", ariaLabel 
 
 function AppBadge({ store, light = false }: { store: "apple" | "google"; light?: boolean }) {
   const isApple = store === "apple";
+  const storeUrl = isApple
+    ? "https://apps.apple.com/in/app/grideeapp/id6757460398"
+    : "https://play.google.com/store/apps/details?id=com.gridee.parking&pcampaignid=web_share";
   return (
-    <MagneticLink className={`store-badge ${light ? "light" : ""}`} ariaLabel={`Download Gridee on ${isApple ? "the App Store" : "Google Play"}`}>
+    <MagneticLink href={storeUrl} className={`store-badge ${light ? "light" : ""}`} ariaLabel={`Download Gridee on ${isApple ? "the App Store" : "Google Play"}`}>
       <img
         className={`store-symbol ${isApple ? "apple-store-symbol" : "google-store-symbol"}`}
         src={isApple ? "/apple-logo.svg" : "/google-play-logo.svg"}
