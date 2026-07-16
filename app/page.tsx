@@ -212,6 +212,13 @@ const footerGroups = [
   { title: "Social", links: ["LinkedIn", "Instagram"] },
 ];
 
+const footerLinkHrefs: Record<string, string> = {
+  Features: "#features",
+  Support: "mailto:hello@gridee.app",
+  LinkedIn: "https://www.linkedin.com/company/gridee?trk=public_post_reshare_feed-actor-image",
+  Instagram: "https://www.instagram.com/gridee/?igsh=MW9rbjdiajJwcTVwZw==",
+};
+
 function Logo() {
   return (
     <span className="logo" aria-label="Gridee home">
@@ -533,7 +540,7 @@ export default function Home() {
 
       <footer id="footer">
         <div className="section-shell footer-shell">
-          <div className="footer-top"><div className="footer-brand"><a href="#top"><Logo /></a><p>The operating system<br />for smart parking.</p></div><div className="footer-columns">{footerGroups.map((group) => <div key={group.title}><h3>{group.title}</h3>{group.links.map((link) => <a href={link === "Features" ? "#features" : link === "Support" ? "mailto:hello@gridee.app" : "#top"} key={link}>{link}</a>)}</div>)}</div></div>
+          <div className="footer-top"><div className="footer-brand"><a href="#top"><Logo /></a><p>The operating system<br />for smart parking.</p></div><div className="footer-columns">{footerGroups.map((group) => <div key={group.title}><h3>{group.title}</h3>{group.links.map((link) => { const href = footerLinkHrefs[link] ?? "#top"; const external = href.startsWith("http"); return <a href={href} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined} key={link}>{link}</a>; })}</div>)}</div></div>
           <div className="footer-bottom"><span>© 2026 Gridee Technologies Pvt. Ltd.</span><span>Made for better arrivals.</span><a href="#top">Back to top <ArrowUpRight size={13} /></a></div>
           <div className="footer-wordmark" aria-hidden="true">Gridee</div>
         </div>
