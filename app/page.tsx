@@ -350,16 +350,6 @@ function StoryStage({ step, index }: { step: typeof storySteps[number]; index: n
   );
 }
 
-function QRPattern() {
-  const cells = Array.from({ length: 169 }, (_, i) => {
-    const row = Math.floor(i / 13);
-    const col = i % 13;
-    const finder = (row < 4 && col < 4) || (row < 4 && col > 8) || (row > 8 && col < 4);
-    return finder || ((row * 3 + col * 5 + row * col) % 7 < 3);
-  });
-  return <div className="qr-pattern" aria-hidden="true">{cells.map((on, i) => <i key={i} className={on ? "on" : ""} />)}</div>;
-}
-
 export default function Home() {
   const reduced = useReducedMotion();
   const [loading, setLoading] = useState(true);
@@ -537,7 +527,7 @@ export default function Home() {
         <div className="download-grid" aria-hidden="true" />
         <div className="download-glow" aria-hidden="true" />
         <div className="section-shell download-shell">
-          <Reveal className="download-copy"><h2>Experience Smarter<br />Parking <em>Today.</em></h2><p>Join the movement toward effortless arrivals.<br />Your next space is already waiting.</p><div className="download-actions"><AppBadge store="apple" light /><AppBadge store="google" light /><div className="download-qr"><QRPattern /><span><small>SCAN TO</small><strong>DOWNLOAD</strong></span></div></div></Reveal>
+          <Reveal className="download-copy"><h2>Experience Smarter<br />Parking <em>Today.</em></h2><p>Join the movement toward effortless arrivals.<br />Your next space is already waiting.</p><div className="download-actions"><AppBadge store="apple" light /><AppBadge store="google" light /></div></Reveal>
           <Reveal className="download-device"><div className="download-rings"><i /><i /><i /></div><PhoneMockup screen="parking" /><div className="download-float"><span><Check size={14} /></span><div><small>READY WHEN YOU ARE</small><strong>193 spaces available</strong></div></div></Reveal>
         </div>
       </section>
