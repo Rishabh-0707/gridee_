@@ -33,6 +33,10 @@ export async function generateMetadata(): Promise<Metadata> {
     keywords: ["smart parking", "parking app", "ANPR parking", "QR parking", "parking management software", "Gridee"],
     authors: [{ name: "Gridee" }],
     creator: "Gridee",
+    icons: {
+      icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+      shortcut: "/icon.svg",
+    },
     alternates: { canonical: "/" },
     openGraph: {
       type: "website",
