@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: gridee
+    runtime: node
+    plan: free
+    branch: main
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /
+    autoDeployTrigger: commit
+    domains:
+      - gridee.in
+    envVars:
+      - key: NODE_VERSION
+        value: 22.13.0
+      - key: HOST
+        value: 0.0.0.0

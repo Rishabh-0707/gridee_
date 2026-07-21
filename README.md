@@ -109,6 +109,12 @@ Production changes should follow this sequence:
 4. Save a Sites version using that commit SHA.
 5. Deploy the saved version and confirm its status succeeds.
 
+### Render
+
+The repository also includes `render.yaml` for the existing Render web service at
+`gridee.in`. Render should build from `main`, run `npm ci && npm run build`, and
+start the Node service with `npm start`.
+
 ## Official Links
 
 - [Gridee documentation](https://docs.gridee.in/)
